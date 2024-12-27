@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Volatus</string>
+    <string name="emptyDefault">""</string>
+    <string name="worldMapContent"></string>
+    <string name="swapIconsContent">change locations</string>
+    <string name="search">Search</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="departure">Departure</string>
+    <string name="returnTitle">Return</string>
+    <string name="passenger">Passenger</string>
+    <string name="oneway">One way</string>
+    <string name="roundTrip">Round Trip</string>
+
 </resources>
