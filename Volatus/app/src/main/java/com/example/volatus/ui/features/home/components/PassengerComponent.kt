@@ -17,9 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
+import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun PassengerComponent() {
+fun PassengerComponent(type:HomeContract.PassengerComponentData) {
     Column( modifier = Modifier
         .fillMaxWidth()
 
@@ -31,8 +32,8 @@ fun PassengerComponent() {
         .background(color = Color.White)
         .padding(16.dp)
     ) {
-        Text(stringResource(R.string.passenger))
-        Text("1 Adult,1 Child,1 Baby",
+        Text(stringResource(type.title))
+        Text(type.passengers,
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold)
@@ -43,6 +44,6 @@ fun PassengerComponent() {
 @Preview(showBackground = true)
 @Composable
 fun PassengerComponentPreview() {
-    PassengerComponent()
+    PassengerComponent(type = HomeContract.PassengerComponentData(title = R.string.passenger, passengers = "1 Adult"))
 
 }

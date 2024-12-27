@@ -2,7 +2,6 @@ package com.example.volatus.ui.features.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
-import com.example.volatus.ui.features.home.HomeScreen
+import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun LocationComponent(title:Int){
+fun LocationComponent(type:HomeContract.LocationComponentData){
 
         Column( modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +33,7 @@ fun LocationComponent(title:Int){
             .background(color = Color.White)
             .padding(16.dp)
          ) {
-            Text(stringResource(title))
+            Text(stringResource(type.title))
             Text("Istanbul Airport (IST)",
                 style = TextStyle(
                     fontSize = 20.sp,
@@ -47,5 +46,5 @@ fun LocationComponent(title:Int){
 @Preview(showBackground = true)
 @Composable
 fun LocationComponentPreview() {
-    LocationComponent(R.string.from)
+    LocationComponent(type = HomeContract.LocationComponentData(title = R.string.from))
 }

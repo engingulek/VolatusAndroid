@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Volatus</string>
+    <string name="emptyDefault">""</string>
     <string name="worldMapContent"></string>
     <string name="swapIconsContent">change locations</string>
     <string name="search">Search</string>

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.volatus.R
 
 @Composable
-fun SearchButtonComponent() {
+fun SearchButtonComponent(title:Int) {
     Button(
         onClick = { },
         modifier = Modifier.fillMaxWidth()
@@ -27,7 +27,7 @@ fun SearchButtonComponent() {
         )
     ) {
         Text(
-            stringResource(R.string.search),
+            stringResource(title),
             style = TextStyle(fontSize = 20.sp)
         )
     }
@@ -38,5 +38,5 @@ fun SearchButtonComponent() {
 @Preview(showBackground = true)
 @Composable
 fun SearchButtonComponentPreview() {
-    SearchButtonComponent()
+    SearchButtonComponent(title = R.string.search)
 }
