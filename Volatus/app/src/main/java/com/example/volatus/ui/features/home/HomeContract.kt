@@ -4,16 +4,15 @@ import androidx.annotation.Nullable
 import androidx.compose.ui.res.stringResource
 import com.example.volatus.R
 import com.example.volatus.ui.theme.ImageType
+import com.example.volatus.ui.theme.worldMap
+
+import com.example.volatus.ui.theme.swapLocationIcon
 
 object HomeContract {
     data class UiState(
-        var backImage:ImageType= ImageType(
-            R.drawable.background,
-            R.string.worldMapContent),
+        var backImage:ImageType= worldMap,
 
-        var swapIcon:ImageType = ImageType(
-            R.drawable.swap_icon,
-            R.string.swapIconsContent),
+        var swapIcon:ImageType= swapLocationIcon,
 
         var searchButtonTitle:Int =  R.string.search,
 

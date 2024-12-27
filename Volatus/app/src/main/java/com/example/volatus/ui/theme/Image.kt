@@ -14,7 +14,7 @@ val worldMap = ImageType(
 )
 
 
-val swapIcon = ImageType(
+val swapLocationIcon = ImageType(
     image =  R.drawable.swap_icon,
     contentDescription = R.string.swapIconsContent
 )
