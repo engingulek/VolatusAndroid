@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.volatus"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.volatus"
@@ -66,4 +66,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 }
