@@ -19,7 +19,7 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun TimeComponent(type:HomeContract.TimeComponentData) {
+fun TimeComponent(title:Int) {
 
         Column( modifier = Modifier
             .border(
@@ -30,7 +30,7 @@ fun TimeComponent(type:HomeContract.TimeComponentData) {
             .background(color = Color.White)
             .padding(16.dp)
         ) {
-            Text(stringResource(type.title))
+            Text(stringResource(title))
             Text("June 02,2024",
                 style = TextStyle(
                     fontSize = 20.sp,
@@ -44,6 +44,6 @@ fun TimeComponent(type:HomeContract.TimeComponentData) {
 @Preview(showBackground = true)
 @Composable
 fun TimeComponentPreview() {
-        TimeComponent(type = HomeContract.TimeComponentData(title = R.string.departure, visible = false))
+        TimeComponent(title = R.string.departure)
 
 }

@@ -19,10 +19,15 @@ import androidx.compose.ui.unit.sp
 import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
+
 @Composable
-fun TripTypeComponent(type:HomeContract.TripeType) {
+fun TripTypeComponent(
+    type:HomeContract.TripeTypeData,
+    title:Int,
+    onClick: () -> Unit
+    ) {
     Button(
-        onClick = { },
+        onClick = onClick,
         modifier = Modifier
             .height(50.dp)
             .border(
@@ -40,14 +45,18 @@ fun TripTypeComponent(type:HomeContract.TripeType) {
         )
     ) {
         Text(
-            stringResource(type.title),
+            stringResource(title),
             style = TextStyle(fontSize = 20.sp)
         )
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun TripTypeComponentPreview() {
-    TripTypeComponent(type = HomeContract.TripeType(R.string.oneway,R.color.white,R.color.red))
-}
+    TripTypeComponent(
+        type = HomeContract.TripeTypeData(R.string.oneway,R.color.white,R.color.red),
+        action = {() -> Unit}
+
+    )
+}*/

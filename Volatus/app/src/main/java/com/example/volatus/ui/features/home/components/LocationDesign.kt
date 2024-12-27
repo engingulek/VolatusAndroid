@@ -20,7 +20,7 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun LocationComponent(type:HomeContract.LocationComponentData){
+fun LocationComponent(title:Int,location:String){
 
         Column( modifier = Modifier
             .fillMaxWidth()
@@ -33,8 +33,8 @@ fun LocationComponent(type:HomeContract.LocationComponentData){
             .background(color = Color.White)
             .padding(16.dp)
          ) {
-            Text(stringResource(type.title))
-            Text("Istanbul Airport (IST)",
+            Text(stringResource(title))
+            Text(location,
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold)
@@ -46,5 +46,5 @@ fun LocationComponent(type:HomeContract.LocationComponentData){
 @Preview(showBackground = true)
 @Composable
 fun LocationComponentPreview() {
-    LocationComponent(type = HomeContract.LocationComponentData(title = R.string.from))
+    LocationComponent(title = R.string.from, location = "Choose")
 }

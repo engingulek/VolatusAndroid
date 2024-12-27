@@ -1,8 +1,10 @@
 package com.example.volatus.ui.features.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,9 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,7 +38,12 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 fun HomeScreen(
     viewModel:HomeViewModelInterface = HomeViewModel()
 ) {
-    val state = viewModel.uiState.value
+    val state by viewModel.uiState.collectAsState()
+    val dateState by viewModel.dateState.collectAsState()
+    val tripState  by viewModel.tripState.collectAsState()
+    val locationState by viewModel.locationState.collectAsState()
+    val passengerState by viewModel.passengerState.collectAsState()
+
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = painterResource(state.backImage.image),
@@ -67,11 +76,27 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
 
-                    TripTypeComponent(type = state.oneWayTripeType)
-                    TripTypeComponent(type = state.roundedTripeType)
+                    val oneWay: () -> Unit = {
+                       viewModel.onAction(HomeContract.UiAction.OnClickOneWay)
+                    }
+                    val roundedTrip :  () -> Unit = {
+                    viewModel.onAction(HomeContract.UiAction.OnClickRoundedTrip)
                 }
 
-                LocationComponent(type = state.fromLocationComponent)
+                    TripTypeComponent(
+                        type = tripState.oneWayTripeType,
+                        title = tripState.oneWayTitle,
+                        onClick = oneWay)
+
+                   TripTypeComponent(
+                        type = tripState.roundedTripeType,
+                       title = tripState.roundedTitle,
+                        onClick = roundedTrip)
+                }
+
+                LocationComponent(
+                    title = locationState.fromTitle,
+                    location = locationState.fromLocation)
 
                 Image(
                     painter = painterResource(state.swapIcon.image),
@@ -79,31 +104,30 @@ fun HomeScreen(
                     modifier = Modifier.size(40.dp)
                 )
 
-                LocationComponent(type = state.toLocationComponent)
+                LocationComponent(
+                    title = locationState.toTitle,
+                    location = locationState.toLocation
+                )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement =
-                    if (!state.returnTimeComponentData.visible) Arrangement.SpaceBetween else
-                    Arrangement.Center
+                    if (!dateState.returnVisible) Arrangement.SpaceBetween
+                    else Arrangement.Center
 
                 ) {
-                    TimeComponent(state.departureTimeComponent)
-                    if (!state.returnTimeComponentData.visible)
-                    TimeComponent(state.returnTimeComponentData)
+                    TimeComponent(dateState.departureTitle)
+                    if (!dateState.returnVisible)
+                        TimeComponent(dateState.returnTitle)
                 }
 
-                PassengerComponent(type = state.passengerComponentData)
+                PassengerComponent(state = passengerState)
 
                 SearchButtonComponent(title = state.searchButtonTitle)
             }
         }
 
 }
-
-
-
-
 
 
 @Preview(showBackground = true, showSystemUi = true)

@@ -20,7 +20,7 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun PassengerComponent(type:HomeContract.PassengerComponentData) {
+fun PassengerComponent(state:HomeContract.PassengerState) {
     Column( modifier = Modifier
         .fillMaxWidth()
 
@@ -32,8 +32,8 @@ fun PassengerComponent(type:HomeContract.PassengerComponentData) {
         .background(color = Color.White)
         .padding(16.dp)
     ) {
-        Text(stringResource(type.title))
-        Text(type.passengers,
+        Text(stringResource(state.title))
+        Text(state.passengers,
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold)
@@ -44,6 +44,6 @@ fun PassengerComponent(type:HomeContract.PassengerComponentData) {
 @Preview(showBackground = true)
 @Composable
 fun PassengerComponentPreview() {
-    PassengerComponent(type = HomeContract.PassengerComponentData(title = R.string.passenger, passengers = "1 Adult"))
+    PassengerComponent(state = HomeContract.PassengerState(title = R.string.passenger, passengers = "1 Adult"))
 
 }

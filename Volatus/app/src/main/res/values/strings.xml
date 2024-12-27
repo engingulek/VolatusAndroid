@@ -11,4 +11,5 @@
     <string name="passenger">Passenger</string>
     <string name="oneway">One way</string>
     <string name="roundTrip">Round Trip</string>
+
 </resources>

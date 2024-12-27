@@ -1,6 +1,7 @@
 package com.example.volatus.ui.features.home
 
 import androidx.annotation.Nullable
+import androidx.compose.ui.res.stringResource
 import com.example.volatus.R
 import com.example.volatus.ui.theme.ImageType
 
@@ -16,56 +17,58 @@ object HomeContract {
 
         var searchButtonTitle:Int =  R.string.search,
 
-        var oneWayTripeType: TripeType = TripeType(
-            title = R.string.oneway,
-            contentColor = R.color.white,
-            containerColor = R.color.red
-        ),
-        var roundedTripeType: TripeType = TripeType(
-            title = R.string.roundTrip,
-            contentColor = R.color.red,
-            containerColor = R.color.white
-        ),
-        var fromLocationComponent:LocationComponentData  =LocationComponentData(
-            title = R.string.from
-        ),
-        var toLocationComponent:LocationComponentData = LocationComponentData(
-            title = R.string.to
-        ),
-
-        var departureTimeComponent:TimeComponentData = TimeComponentData(
-            title = R.string.departure,
-            visible = false
-        ),
-        var returnTimeComponentData: TimeComponentData = TimeComponentData(
-            title = R.string.returnTitle,
-            visible = true
-        ),
-        var passengerComponentData: PassengerComponentData = PassengerComponentData(
-            title = R.string.passenger,
-            passengers = "1 Adult"
-        ),
-
 
 
     )
 
-    data class  TripeType(
-        var title:Int = R.string.emptyDefault,
+    data class DateState(
+        val departureTitle:Int =  R.string.departure,
+        val returnTitle:Int = R.string.returnTitle ,
+        var returnVisible:Boolean = true
+    )
+
+
+    data class  TripTypeState(
+        val oneWayTitle : Int = R.string.oneway,
+        val roundedTitle:Int = R.string.roundTrip,
+        val oneWayTripeType: TripeTypeData = TripeTypeData(
+
+            contentColor = R.color.white,
+            containerColor = R.color.red
+        ),
+        val roundedTripeType: TripeTypeData =
+            TripeTypeData(
+                contentColor = R.color.red,
+                containerColor = R.color.white
+            )
+    )
+
+    data class  TripeTypeData(
+
         var contentColor:Int,
         var containerColor:Int
         )
 
-    data class LocationComponentData(
-        var title:Int = R.string.emptyDefault
+    data class LocationState(
+        val fromTitle:Int = R.string.from,
+        val toTitle:Int = R.string.to,
+        var fromLocation:String ="Choose",
+        var toLocation : String = "Choose"
+
+
     )
 
-    data class TimeComponentData(
-        var title:Int = R.string.emptyDefault,
-        var visible:Boolean = false
-    )
 
-    data class PassengerComponentData(
-        var title:Int = R.string.emptyDefault,
-        var passengers:String)
+
+    data class PassengerState(
+        var title:Int = R.string.passenger,
+        var passengers:String = "")
+
+
+    sealed interface UiAction{
+
+        data object OnClickOneWay :UiAction
+        data object OnClickRoundedTrip:UiAction
+
+    }
 }
