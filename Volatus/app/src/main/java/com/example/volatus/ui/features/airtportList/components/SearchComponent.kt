@@ -17,20 +17,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.volatus.R
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SearchComponent() {
+fun SearchComponent(placeholder:Int) {
     var query by remember { mutableStateOf("") }
     TextField(
         value = query,
         onValueChange = { query = it },
         placeholder = {
-            Text("Search Airport",
+            Text(
+                stringResource(placeholder),
                 style = TextStyle(
                     fontSize = 20.sp,
                     color = Color.LightGray,
@@ -59,6 +62,6 @@ fun SearchComponent() {
 @Preview(showBackground = true)
 @Composable
 fun SearchVComponentPreview() {
-    SearchComponent()
+    SearchComponent(R.string.searchPlaceholder)
 
 }

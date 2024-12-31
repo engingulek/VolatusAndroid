@@ -18,10 +18,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.volatus.ui.features.airtportList.Airport
 
 @Composable
-fun AirportList() {
-    val itmes = listOf("Elma", "Armut", "Muz", "Karpuz", "Kiraz")
+fun AirportList(list:List<Airport>) {
+
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("All Airports",
             style = TextStyle(
@@ -37,14 +38,14 @@ fun AirportList() {
                 .background(Color.Red)
         )
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            items(itmes){item ->
+            items(list){airport ->
                 Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text("City,Country", style = TextStyle(
+                    Text("${airport.city},${airport.country}", style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     )
-                    Text("Code-Name", style = TextStyle(
+                    Text("${airport.code}-${airport.name}", style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Gray
