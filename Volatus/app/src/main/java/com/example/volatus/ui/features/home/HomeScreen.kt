@@ -36,7 +36,8 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 
 @Composable
 fun HomeScreen(
-    viewModel:HomeViewModelInterface = HomeViewModel()
+    viewModel:HomeViewModelInterface = HomeViewModel(),
+    navigationTo:() -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
     val dateState by viewModel.dateState.collectAsState()
@@ -96,7 +97,8 @@ fun HomeScreen(
 
                 LocationComponent(
                     title = locationState.fromTitle,
-                    location = locationState.fromLocation)
+                    location = locationState.fromLocation,
+                    navigation = navigationTo)
 
                 Image(
                     painter = painterResource(state.swapIcon.image),
@@ -106,7 +108,8 @@ fun HomeScreen(
 
                 LocationComponent(
                     title = locationState.toTitle,
-                    location = locationState.toLocation
+                    location = locationState.toLocation,
+                    navigation = navigationTo
                 )
 
                 Row(
@@ -133,5 +136,5 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(navigationTo = {})
 }

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import com.example.volatus.ui.features.home.HomeScreen
 import androidx.navigation.compose.composable
+import com.example.volatus.ui.features.airtportList.AirportListScreen
 
 @Composable
 fun AppNavigation(
@@ -19,7 +20,10 @@ fun AppNavigation(
     ){
 
         composable("homeScreen"){
-            HomeScreen()
+            HomeScreen(navigationTo = {navHostController.navigate("airportList")})
+        }
+        composable("airportList"){
+            AirportListScreen()
         }
 
 
