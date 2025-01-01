@@ -45,6 +45,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.volatus.utils.getDateCardColor
+
+import com.example.volatus.utils.getDateColor
+
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -100,19 +104,19 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                      ) {
                          items(days){ day ->
 
-                             if (day != null){
+                             if (day.second != null){
                                  Card(
                                      modifier = Modifier.padding(4.dp),
                                      colors = CardDefaults.cardColors(
-                                         containerColor = Color.Transparent
+                                         containerColor = day.first.getDateCardColor()
                                      )
                                  ) {
 
                                      Text(
-                                         text = "${day}",
+                                         text = "${day.second}",
                                          modifier = Modifier.padding(8.dp).fillMaxSize(),
                                          style = TextStyle(
-                                             color = Color.Black,
+                                             color = day.first.getDateColor(),
                                              fontSize = 18.sp,
                                              textAlign = TextAlign.Center)
 
