@@ -14,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.volatus.navigation.AppNavigation
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeScreen
+import com.example.volatus.ui.features.home.HomeViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +31,8 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     AppNavigation(
                         modifier = Modifier.fillMaxSize().padding(innerPadding),
-                        navHostController = navController
+                        navHostController = navController,
+                        homeViewModel = HomeViewModel()
                     )
 
                 }

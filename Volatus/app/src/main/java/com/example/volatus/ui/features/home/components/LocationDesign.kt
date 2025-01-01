@@ -2,6 +2,7 @@ package com.example.volatus.ui.features.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -20,7 +22,11 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun LocationComponent(title:Int,location:String){
+fun LocationComponent(
+    title:Int,
+    location:String,
+    navigation:() -> Unit
+    ){
 
         Column( modifier = Modifier
             .fillMaxWidth()
@@ -32,6 +38,8 @@ fun LocationComponent(title:Int,location:String){
             )
             .background(color = Color.White)
             .padding(16.dp)
+            .clickable(onClick = navigation)
+
          ) {
             Text(stringResource(title))
             Text(location,
@@ -46,5 +54,5 @@ fun LocationComponent(title:Int,location:String){
 @Preview(showBackground = true)
 @Composable
 fun LocationComponentPreview() {
-    LocationComponent(title = R.string.from, location = "Choose")
+    LocationComponent(title = R.string.from, location = "Choose", navigation = {})
 }

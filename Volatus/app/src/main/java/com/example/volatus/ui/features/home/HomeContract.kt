@@ -3,6 +3,7 @@ package com.example.volatus.ui.features.home
 import androidx.annotation.Nullable
 import androidx.compose.ui.res.stringResource
 import com.example.volatus.R
+import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.theme.ImageType
 import com.example.volatus.ui.theme.worldMap
 
@@ -52,7 +53,7 @@ object HomeContract {
         val fromTitle:Int = R.string.from,
         val toTitle:Int = R.string.to,
         var fromLocation:String ="Choose",
-        var toLocation : String = "Choose"
+        var toLocation : String = "Choose",
 
 
     )
@@ -68,6 +69,8 @@ object HomeContract {
 
         data object OnClickOneWay :UiAction
         data object OnClickRoundedTrip:UiAction
+        data class selectedAirport(var type:Boolean?,var airport: Airport) : UiAction
+
 
     }
 }
