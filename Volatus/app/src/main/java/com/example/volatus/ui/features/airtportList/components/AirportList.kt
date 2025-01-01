@@ -1,6 +1,8 @@
 package com.example.volatus.ui.features.airtportList.components
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +23,9 @@ import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.airtportList.Airport
 
 @Composable
-fun AirportList(list:List<Airport>) {
+fun AirportList(
+    list:List<Airport>,
+    selectAirport: (Airport)->Unit,onBack:()->Unit) {
 
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("All Airports",
@@ -39,7 +43,12 @@ fun AirportList(list:List<Airport>) {
         )
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp)) {
             items(list){airport ->
-                Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                Column(
+                    Modifier.clickable {
+                        selectAirport(airport)
+                        onBack()
+                    },
+                    verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text("${airport.city},${airport.country}", style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold

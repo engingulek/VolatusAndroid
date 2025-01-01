@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
+import com.example.volatus.ui.features.airtportList.Airport
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -17,10 +18,6 @@ interface HomeViewModelInterface{
 
 
     fun onAction(uiAction: HomeContract.UiAction)
-
-
-
-
 }
 
 
@@ -42,6 +39,10 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     override var passengerState: StateFlow<HomeContract.PassengerState> = _passengerState
 
 
+    private  var selectedFromAirport:Airport? = null
+    private  var selectedToAirport:Airport? = null
+
+
     init {
         _passengerState.value = _passengerState.value.copy(
             passengers = "1 Adult"
@@ -55,6 +56,8 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
 
             HomeContract.UiAction.OnClickOneWay ->  clickedOneWay()
             HomeContract.UiAction.OnClickRoundedTrip ->clickedRoundedWay()
+            is HomeContract.UiAction.selectedAirport -> selectedAirportAction(uiAction.type,uiAction.airport)
+
         }
     }
 
@@ -94,6 +97,27 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
             )
         )
     }
+
+    private fun selectedAirportAction(type:Boolean?,airport: Airport){
+        val airportText = "${airport.code} - ${airport.name}"
+        type?.let {
+            if (it){
+                selectedFromAirport = airport
+
+                _locationState.value = _locationState.value.copy(
+                    fromLocation =  airportText
+                )
+            }else{
+                _locationState.value = _locationState.value.copy(
+                    toLocation =  airportText
+                )
+            }
+        }
+    }
+
+    /**/
+
+
 
 
 

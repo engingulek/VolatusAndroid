@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -36,8 +37,9 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 
 @Composable
 fun HomeScreen(
-    viewModel:HomeViewModelInterface = HomeViewModel(),
-    navigationTo:() -> Unit
+    viewModel:HomeViewModelInterface,
+    navigationToAirportList:(Boolean) -> Unit,
+
 ) {
     val state by viewModel.uiState.collectAsState()
     val dateState by viewModel.dateState.collectAsState()
@@ -98,7 +100,7 @@ fun HomeScreen(
                 LocationComponent(
                     title = locationState.fromTitle,
                     location = locationState.fromLocation,
-                    navigation = navigationTo)
+                    navigation = {navigationToAirportList(true)})
 
                 Image(
                     painter = painterResource(state.swapIcon.image),
@@ -109,7 +111,7 @@ fun HomeScreen(
                 LocationComponent(
                     title = locationState.toTitle,
                     location = locationState.toLocation,
-                    navigation = navigationTo
+                    navigation = {navigationToAirportList(false)}
                 )
 
                 Row(
@@ -136,5 +138,5 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(navigationTo = {})
+    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {})
 }
