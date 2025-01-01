@@ -57,7 +57,7 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
             HomeContract.UiAction.OnClickOneWay ->  clickedOneWay()
             HomeContract.UiAction.OnClickRoundedTrip ->clickedRoundedWay()
             is HomeContract.UiAction.selectedAirport -> selectedAirportAction(uiAction.type,uiAction.airport)
-
+            HomeContract.UiAction.OnClickSwapIcon -> onClickSwapIconAction()
         }
     }
 
@@ -108,6 +108,7 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
                     fromLocation =  airportText
                 )
             }else{
+                selectedToAirport = airport
                 _locationState.value = _locationState.value.copy(
                     toLocation =  airportText
                 )
@@ -115,7 +116,19 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
         }
     }
 
-    /**/
+    private fun onClickSwapIconAction(){
+        val tempAirport = selectedFromAirport
+        selectedFromAirport = selectedToAirport
+        selectedToAirport = tempAirport
+
+        _locationState.value = _locationState.value.copy(
+            fromLocation =  _locationState.value.toLocation,
+            toLocation = _locationState.value.fromLocation
+
+        )
+
+
+    }
 
 
 

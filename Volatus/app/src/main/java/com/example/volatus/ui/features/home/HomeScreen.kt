@@ -39,6 +39,7 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 fun HomeScreen(
     viewModel:HomeViewModelInterface,
     navigationToAirportList:(Boolean) -> Unit,
+    navigationToDateScreen:() -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -56,6 +57,7 @@ fun HomeScreen(
                     .height(250.dp)
                     .clip(RoundedCornerShape(
                         bottomStart = 10.dp, bottomEnd = 10.dp))
+
             )
             Column(
                 modifier = Modifier
@@ -106,6 +108,9 @@ fun HomeScreen(
                     painter = painterResource(state.swapIcon.image),
                     contentDescription = stringResource(state.swapIcon.contentDescription),
                     modifier = Modifier.size(40.dp)
+                        .clickable{
+                            viewModel.onAction(HomeContract.UiAction.OnClickSwapIcon)
+                        }
                 )
 
                 LocationComponent(
@@ -121,9 +126,9 @@ fun HomeScreen(
                     else Arrangement.Center
 
                 ) {
-                    TimeComponent(dateState.departureTitle)
+                    TimeComponent(dateState.departureTitle, navigation = navigationToDateScreen)
                     if (!dateState.returnVisible)
-                        TimeComponent(dateState.returnTitle)
+                        TimeComponent(dateState.returnTitle,navigation = navigationToDateScreen)
                 }
 
                 PassengerComponent(state = passengerState)
@@ -138,5 +143,5 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {})
+    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {}, navigationToDateScreen = {})
 }

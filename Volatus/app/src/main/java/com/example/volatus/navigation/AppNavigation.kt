@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.airtportList.AirportListScreen
+import com.example.volatus.ui.features.date.DateScreen
 import com.example.volatus.ui.features.home.HomeContract
 import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
@@ -32,6 +33,7 @@ fun AppNavigation(
                 viewModel = homeViewModel,
                 navigationToAirportList = { type ->
                     navHostController.navigate("airportList/$type")},
+                navigationToDateScreen = { navHostController.navigate("dateScreen") }
 
             )
         }
@@ -44,6 +46,10 @@ fun AppNavigation(
                 selectAirport = {homeViewModel.onAction(HomeContract.UiAction.selectedAirport(type= type,it))},
                 onBack = {navHostController.popBackStack()}
             )
+        }
+
+        composable("dateScreen"){
+            DateScreen()
         }
 
 

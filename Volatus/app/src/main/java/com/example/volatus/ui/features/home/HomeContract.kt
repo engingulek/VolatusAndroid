@@ -70,6 +70,7 @@ object HomeContract {
         data object OnClickOneWay :UiAction
         data object OnClickRoundedTrip:UiAction
         data class selectedAirport(var type:Boolean?,var airport: Airport) : UiAction
+        data object  OnClickSwapIcon:UiAction
 
 
     }
