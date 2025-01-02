@@ -6,8 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
+import kotlinx.coroutines.IO_PARALLELISM_PROPERTY_NAME
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 interface HomeViewModelInterface{
     var uiState : StateFlow<HomeContract.UiState>
@@ -42,10 +45,18 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     private  var selectedFromAirport:Airport? = null
     private  var selectedToAirport:Airport? = null
 
+    private var selectedDepartureDate:LocalDate = LocalDate.now()
+    private  var selectedReturnDate:LocalDate? = null
+    private  val formatter = DateTimeFormatter.ofPattern("MMMM dd,yyyy")
 
     init {
         _passengerState.value = _passengerState.value.copy(
             passengers = "1 Adult"
+        )
+
+        _dateState.value = _dateState.value.copy(
+            departureDate = formatter.format(LocalDate.now()),
+            returnDate =  formatter.format(LocalDate.now())
         )
     }
 
@@ -57,7 +68,8 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
             HomeContract.UiAction.OnClickOneWay ->  clickedOneWay()
             HomeContract.UiAction.OnClickRoundedTrip ->clickedRoundedWay()
             is HomeContract.UiAction.selectedAirport -> selectedAirportAction(uiAction.type,uiAction.airport)
-
+            HomeContract.UiAction.OnClickSwapIcon -> onClickSwapIconAction()
+            is HomeContract.UiAction.selectedDate -> selectedDateAction(uiAction.type,uiAction.date)
         }
     }
 
@@ -82,7 +94,8 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     private fun clickedRoundedWay(){
 
         _dateState.value = _dateState.value.copy(
-            returnVisible = false
+            returnVisible = false,
+           returnDate = formatter.format(selectedDepartureDate)
         )
 
         _tripState.value = _tripState.value.copy(
@@ -108,6 +121,7 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
                     fromLocation =  airportText
                 )
             }else{
+                selectedToAirport = airport
                 _locationState.value = _locationState.value.copy(
                     toLocation =  airportText
                 )
@@ -115,7 +129,38 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
         }
     }
 
-    /**/
+    private fun selectedDateAction(type:Boolean?,date:LocalDate) {
+
+        val dateText = formatter.format(date)
+
+        type?.let {
+            if (it){
+               selectedDepartureDate = date
+                _dateState.value = _dateState.value.copy(
+                    departureDate =  dateText
+                )
+            }else{
+                selectedReturnDate = date
+                _dateState.value = _dateState.value.copy(
+                    returnDate = dateText
+                )
+            }
+        }
+    }
+
+    private fun onClickSwapIconAction(){
+        val tempAirport = selectedFromAirport
+        selectedFromAirport = selectedToAirport
+        selectedToAirport = tempAirport
+
+        _locationState.value = _locationState.value.copy(
+            fromLocation =  _locationState.value.toLocation,
+            toLocation = _locationState.value.fromLocation
+
+        )
+
+
+    }
 
 
 

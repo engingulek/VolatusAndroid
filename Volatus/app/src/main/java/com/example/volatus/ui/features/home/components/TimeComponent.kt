@@ -2,6 +2,7 @@ package com.example.volatus.ui.features.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +20,10 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun TimeComponent(title:Int) {
+fun TimeComponent(
+    title:Int,
+    dateText:String,
+    navigation:() -> Unit) {
 
         Column( modifier = Modifier
             .border(
@@ -29,9 +33,10 @@ fun TimeComponent(title:Int) {
             )
             .background(color = Color.White)
             .padding(16.dp)
+            .clickable(onClick = navigation)
         ) {
             Text(stringResource(title))
-            Text("June 02,2024",
+            Text(dateText,
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold)
@@ -44,6 +49,6 @@ fun TimeComponent(title:Int) {
 @Preview(showBackground = true)
 @Composable
 fun TimeComponentPreview() {
-        TimeComponent(title = R.string.departure)
+        TimeComponent(title = R.string.departure, dateText = "January 01,2025", navigation = {})
 
 }

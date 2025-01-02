@@ -8,6 +8,7 @@ import com.example.volatus.ui.theme.ImageType
 import com.example.volatus.ui.theme.worldMap
 
 import com.example.volatus.ui.theme.swapLocationIcon
+import java.time.LocalDate
 
 object HomeContract {
     data class UiState(
@@ -24,7 +25,9 @@ object HomeContract {
     data class DateState(
         val departureTitle:Int =  R.string.departure,
         val returnTitle:Int = R.string.returnTitle ,
-        var returnVisible:Boolean = true
+        var returnVisible:Boolean = true,
+        val departureDate:String = "",
+        val returnDate:String = ""
     )
 
 
@@ -70,6 +73,8 @@ object HomeContract {
         data object OnClickOneWay :UiAction
         data object OnClickRoundedTrip:UiAction
         data class selectedAirport(var type:Boolean?,var airport: Airport) : UiAction
+        data object  OnClickSwapIcon:UiAction
+        data class selectedDate(var type:Boolean?,var date:LocalDate) : UiAction
 
 
     }
