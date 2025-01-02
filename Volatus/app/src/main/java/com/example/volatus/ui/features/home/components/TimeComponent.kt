@@ -20,7 +20,10 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun TimeComponent(title:Int,navigation:() -> Unit) {
+fun TimeComponent(
+    title:Int,
+    dateText:String,
+    navigation:() -> Unit) {
 
         Column( modifier = Modifier
             .border(
@@ -33,7 +36,7 @@ fun TimeComponent(title:Int,navigation:() -> Unit) {
             .clickable(onClick = navigation)
         ) {
             Text(stringResource(title))
-            Text("June 02,2024",
+            Text(dateText,
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold)
@@ -46,6 +49,6 @@ fun TimeComponent(title:Int,navigation:() -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun TimeComponentPreview() {
-        TimeComponent(title = R.string.departure, navigation = {})
+        TimeComponent(title = R.string.departure, dateText = "January 01,2025", navigation = {})
 
 }

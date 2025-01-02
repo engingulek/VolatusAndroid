@@ -57,7 +57,12 @@ import java.util.*
 
 
 @Composable
-fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
+fun DateScreen(
+    viewModel: DateViewModel = DateViewModel(),
+    selectDateAction:(LocalDate) -> Unit,
+    onBack: () -> Unit
+
+    ) {
 
     val mount by viewModel.mountCalender.collectAsState()
     val dayCalendar by viewModel.daysCalender.collectAsState()
@@ -114,7 +119,13 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                                      modifier = Modifier.padding(4.dp)
                                          .clickable(
                                              enabled = day.first != DateValueType.DISABLE
-                                         ) {  viewModel.selectedData(mountIndex,dayIndex)},
+                                         ) {
+                                             viewModel.selectedData(mountIndex,dayIndex)
+                                            val selectedDate = viewModel.getSelectedDate(mountIndex,day.second)
+                                             selectDateAction(selectedDate)
+                                             onBack()
+
+                                           },
 
                                      colors = CardDefaults.cardColors(
                                          containerColor = day.first.getDateCardColor()

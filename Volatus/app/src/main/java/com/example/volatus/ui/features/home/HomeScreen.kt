@@ -39,7 +39,7 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 fun HomeScreen(
     viewModel:HomeViewModelInterface,
     navigationToAirportList:(Boolean) -> Unit,
-    navigationToDateScreen:() -> Unit
+    navigationToDateScreen:(Boolean) -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -53,10 +53,14 @@ fun HomeScreen(
                 painter = painterResource(state.backImage.image),
                 contentScale = ContentScale.FillWidth,
                 contentDescription = stringResource(state.backImage.contentDescription),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .height(250.dp)
-                    .clip(RoundedCornerShape(
-                        bottomStart = 10.dp, bottomEnd = 10.dp))
+                    .clip(
+                        RoundedCornerShape(
+                            bottomStart = 10.dp, bottomEnd = 10.dp
+                        )
+                    )
 
             )
             Column(
@@ -107,8 +111,9 @@ fun HomeScreen(
                 Image(
                     painter = painterResource(state.swapIcon.image),
                     contentDescription = stringResource(state.swapIcon.contentDescription),
-                    modifier = Modifier.size(40.dp)
-                        .clickable{
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
                             viewModel.onAction(HomeContract.UiAction.OnClickSwapIcon)
                         }
                 )
@@ -126,9 +131,14 @@ fun HomeScreen(
                     else Arrangement.Center
 
                 ) {
-                    TimeComponent(dateState.departureTitle, navigation = navigationToDateScreen)
+                    TimeComponent(dateState.departureTitle,
+                        dateText = dateState.departureDate,
+                        navigation = {navigationToDateScreen(true)})
                     if (!dateState.returnVisible)
-                        TimeComponent(dateState.returnTitle,navigation = navigationToDateScreen)
+                        TimeComponent(dateState.returnTitle,
+                            dateText = dateState.returnDate,
+                            navigation = { navigationToDateScreen(false) }
+                        )
                 }
 
                 PassengerComponent(state = passengerState)

@@ -33,14 +33,16 @@ fun AppNavigation(
                 viewModel = homeViewModel,
                 navigationToAirportList = { type ->
                     navHostController.navigate("airportList/$type")},
-                navigationToDateScreen = { navHostController.navigate("dateScreen") }
+                navigationToDateScreen = { dateType ->
+
+                    navHostController.navigate("dateScreen/$dateType")
+                }
 
             )
         }
         composable("airportList/{type}",
             arguments = listOf(navArgument("type"){type= NavType.BoolType})
-
-            ,){ backStackEntry ->
+        ){ backStackEntry ->
             val type = backStackEntry.arguments?.getBoolean("type")
             AirportListScreen(
                 selectAirport = {homeViewModel.onAction(HomeContract.UiAction.selectedAirport(type= type,it))},
@@ -48,8 +50,16 @@ fun AppNavigation(
             )
         }
 
-        composable("dateScreen"){
-            DateScreen()
+        composable(
+            "dateScreen/{dateType}",
+            arguments = listOf(navArgument("dateType"){type = NavType.BoolType})
+        ){backStackEntry ->
+            val dateType = backStackEntry.arguments?.getBoolean("dateType")
+            DateScreen(
+               selectDateAction = {homeViewModel.onAction(HomeContract.UiAction.selectedDate(type = dateType,it))},
+                onBack = {navHostController.popBackStack()}
+
+            )
         }
 
 

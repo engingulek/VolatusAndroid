@@ -28,7 +28,11 @@ enum class DateValueType{
 class DateViewModel : ViewModel() {
 
     val mountCalender = MutableStateFlow(mutableMapOf<Int, String>())
-    var daysCalender = MutableStateFlow(mutableMapOf<Int,List<Pair<DateValueType,String?>>>())
+    var daysCalender = MutableStateFlow(mutableMapOf<Int,List<Pair<DateValueType,Int?>>>())
+     private var dates = mutableListOf<Triple<Int, Int, LocalDate>>()
+
+
+
     private var selected:Boolean = false
     private  var oldMountIndex : Int = -1
     private  var oldDayIndex:Int = -1
@@ -38,7 +42,7 @@ class DateViewModel : ViewModel() {
     init {
         getCalendarData()
     }
-    
+
     fun selectedData(mountIndex:Int,dayIndex:Int) {
 
         if (selected) {
@@ -53,8 +57,11 @@ class DateViewModel : ViewModel() {
 
         oldMountIndex = mountIndex
         oldDayIndex = dayIndex
+    }
 
-
+    fun getSelectedDate(mountIndex: Int,day:Int?) : LocalDate  {
+        val selected = dates.filter { it.first == mountIndex && it.second == day }.first().third
+        return selected
     }
 
     private fun updateDay(mountIndex: Int, dayIndex: Int, dateType: DateValueType) {
@@ -92,11 +99,12 @@ class DateViewModel : ViewModel() {
             val startWeekDay = calendar.get(Calendar.DAY_OF_WEEK) - 2
 
             val daysInMonth = mutableListOf<Pair<DateValueType,String?>>()
-            val daysList = mutableListOf<Pair<DateValueType, String?>>()
+            val daysList = mutableListOf<Pair<DateValueType, Int?>>()
+            val datesList = mutableListOf<Date>()
             // İlk gün için boş hücreler ekle
             for (j in 0 until startWeekDay) {
                 daysInMonth.add(Pair(DateValueType.DISABLE,null))
-               daysList.add(Pair(DateValueType.DISABLE,null))
+              daysList.add(Pair(DateValueType.DISABLE,null))
 
             }
 
@@ -124,14 +132,17 @@ class DateViewModel : ViewModel() {
 
 
 
+               datesList.add(rangeCalendar.time)
+               dates.add(Triple(i,day,rangeLocalDate))
 
 
+               daysList.add(Pair(type,day))
 
-
-               daysList.add(Pair(type,"${day}"))
 
 
             }
+
+
              daysCalender.value = daysCalender.value.toMutableMap().apply {
                  put(i,daysList)
              }
