@@ -4,6 +4,7 @@ import androidx.annotation.Nullable
 import androidx.compose.ui.res.stringResource
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
+import com.example.volatus.ui.features.passenger.Passenger
 import com.example.volatus.ui.theme.ImageType
 import com.example.volatus.ui.theme.worldMap
 
@@ -17,8 +18,6 @@ object HomeContract {
         var swapIcon:ImageType= swapLocationIcon,
 
         var searchButtonTitle:Int =  R.string.search,
-
-
 
     )
 
@@ -65,17 +64,24 @@ object HomeContract {
 
     data class PassengerState(
         var title:Int = R.string.passenger,
-        var passengers:String = "")
+        var passengerText:String = "",
+        var passengerList:List<Passenger> = emptyList()
+    )
 
 
     sealed interface UiAction{
 
         data object OnClickOneWay :UiAction
         data object OnClickRoundedTrip:UiAction
-        data class selectedAirport(var type:Boolean?,var airport: Airport) : UiAction
         data object  OnClickSwapIcon:UiAction
-        data class selectedDate(var type:Boolean?,var date:LocalDate) : UiAction
 
 
+
+    }
+
+    sealed interface PublicUiAction{
+        data class selectedAirport(var type:Boolean?,var airport: Airport) : PublicUiAction
+        data class selectedDate(var type:Boolean?,var date:LocalDate) : PublicUiAction
+        data class updatePassengerList(var passengerList: List<Passenger>):PublicUiAction
     }
 }

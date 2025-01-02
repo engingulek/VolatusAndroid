@@ -22,6 +22,7 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeScreen
 import com.example.volatus.ui.features.home.HomeViewModel
+import com.example.volatus.ui.features.passenger.PassengerViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize().padding(innerPadding),
                         navHostController = navController,
                         homeViewModel = HomeViewModel(),
-                        dateViewModel = DateViewModel()
+                        dateViewModel = DateViewModel(),
+                        passengerViewModel = PassengerViewModel()
                     )
 
                 }
