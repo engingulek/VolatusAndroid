@@ -2,6 +2,7 @@ package com.example.volatus.ui.features.date
 
 import android.app.DatePickerDialog
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -57,15 +58,16 @@ import java.util.*
 
 @Composable
 fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
-    val calendarData = viewModel.result
 
+    val mount by viewModel.mountCalender.collectAsState()
+    val dayCalendar by viewModel.daysCalender.collectAsState()
      Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
          LazyColumn {
-             items(calendarData.size) { index ->
-                 val monthAndYear = calendarData[index].keys.first()
-                 val days = calendarData[index].values.flatten()
+             items(mount.keys.size) { index ->
+                 val monthAndYear = mount[index]
+
                  Column(modifier = Modifier.padding(vertical = 10.dp)) {
-                     Text(monthAndYear, style = TextStyle(
+                     Text(monthAndYear ?: "", style = TextStyle(
                          fontSize = 20.sp, fontWeight =
                          FontWeight.SemiBold)
                      )
@@ -75,13 +77,13 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                          modifier = Modifier.height(50.dp)
 
                      ) {
-                         items(viewModel.weeks) { day ->
+                         items(viewModel.weeks) { week ->
                              Card(modifier = Modifier.padding(4.dp),
                                  colors = CardDefaults.cardColors(
                                  containerColor = Color.Transparent
                              )) {
                                  Text(
-                                     text = day,
+                                     text = week,
                                      modifier = Modifier.padding(5.dp),
                                        style = TextStyle(
                                          color = Color.Gray,
@@ -97,16 +99,21 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                          }
 
                      }
+                     val days = dayCalendar[index] ?: emptyList()
                      LazyVerticalGrid(
-                         columns = GridCells.Fixed(7), // 7 sütun (Pazartesi, Salı, ...)
+                         columns = GridCells.Fixed(7),
                          modifier = Modifier.fillMaxWidth()
                              .height(230.dp)
+
+
                      ) {
                          items(days){ day ->
 
                              if (day.second != null){
                                  Card(
-                                     modifier = Modifier.padding(4.dp),
+                                     modifier = Modifier.padding(4.dp)
+                                         .clickable {  viewModel.selectedData(index)},
+
                                      colors = CardDefaults.cardColors(
                                          containerColor = day.first.getDateCardColor()
                                      )
@@ -121,8 +128,6 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                                              textAlign = TextAlign.Center)
 
                                      )
-
-
                                  }
                              }
 
@@ -136,47 +141,4 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
 
      }
 
-    /*LazyColumn(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-
-        items(calendarData) { monthData -> // Veriyi burada ayın verisi ile geçiyoruz
-            Column(modifier = Modifier.padding(bottom = 24.dp)) {
-
-                // Her bir ay için başlık (dinamik)
-              //  Text(text = monthData.monthName, style = MaterialTheme.typography.labelLarge)
-
-                // Haftanın günleri
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(7), // 7 sütun (Pazartesi, Salı, ...)
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    items(listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cts", "Paz")) { day ->
-                        Card(modifier = Modifier.padding(4.dp)) {
-                            Text(
-                                text = day,
-                                modifier = Modifier.padding(8.dp),
-                                style = MaterialTheme.typography.labelLarge
-                            )
-                        }
-                    }
-                }
-
-                // Ayın tarihleri
-                /*LazyVerticalGrid(
-                    columns = GridCells.Fixed(7), // 7 sütun (Pazartesi, Salı, ...)
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    // Burada monthData.dates veya uygun tarih verisini kullanarak grid'i oluşturuyoruz.
-                    items(monthData.dates) { date ->
-                        Card(modifier = Modifier.padding(4.dp)) {
-                            Text(
-                                text = date.dayOfMonth.toString(), // Gün numarasını göstermek
-                                modifier = Modifier.padding(8.dp),
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        }
-                    }
-                }*/
-            }
-        }
-    }*/
 }

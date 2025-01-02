@@ -8,6 +8,7 @@ fun DateValueType.getDateColor() : Color {
         DateValueType.NOw -> return  Color.White
         DateValueType.DISABLE -> return  Color.Gray
         DateValueType.DefaultDate -> return  Color.Black
+        DateValueType.Selected -> return  Color.Blue
     }
 }
 
@@ -17,6 +18,7 @@ fun DateValueType.getDateCardColor() : Color {
         DateValueType.NOw -> return  Color.Black
         DateValueType.DISABLE -> return  Color.Transparent
         DateValueType.DefaultDate -> return  Color.Transparent
+        DateValueType.Selected -> return  Color.Transparent
     }
 
 }
