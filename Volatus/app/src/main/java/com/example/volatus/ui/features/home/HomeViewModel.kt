@@ -132,7 +132,7 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     private fun selectedDateAction(type:Boolean?,date:LocalDate) {
 
         val dateText = formatter.format(date)
-      
+
         type?.let {
             if (it){
                selectedDepartureDate = date

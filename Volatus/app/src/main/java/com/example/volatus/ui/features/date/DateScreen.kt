@@ -58,7 +58,7 @@ import java.util.*
 
 @Composable
 fun DateScreen(
-    viewModel: DateViewModel = DateViewModel(),
+    viewModel: DateViewModel,
     selectDateAction:(LocalDate) -> Unit,
     onBack: () -> Unit
 
@@ -66,7 +66,15 @@ fun DateScreen(
 
     val mount by viewModel.mountCalender.collectAsState()
     val dayCalendar by viewModel.daysCalender.collectAsState()
+    val navTitle by viewModel.navTitle.collectAsState()
      Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+         Text(modifier = Modifier.fillMaxWidth(),
+             text = navTitle, style = TextStyle(
+                 fontSize = 20.sp,
+                 fontWeight = FontWeight.SemiBold,
+                 textAlign = TextAlign.Center
+             )
+         )
          LazyColumn {
              items(mount.keys.size) { mountIndex ->
                  val monthAndYear = mount[mountIndex]

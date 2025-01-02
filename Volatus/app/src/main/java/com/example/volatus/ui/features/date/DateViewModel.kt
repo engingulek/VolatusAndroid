@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.Period
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Date
@@ -22,6 +24,7 @@ enum class DateValueType{
     DISABLE,
     DefaultDate,
     Selected,
+    Between
 
 }
 
@@ -30,6 +33,8 @@ class DateViewModel : ViewModel() {
     val mountCalender = MutableStateFlow(mutableMapOf<Int, String>())
     var daysCalender = MutableStateFlow(mutableMapOf<Int,List<Pair<DateValueType,Int?>>>())
      private var dates = mutableListOf<Triple<Int, Int, LocalDate>>()
+    val navTitle = MutableStateFlow<String>("")
+
 
 
 
@@ -40,8 +45,11 @@ class DateViewModel : ViewModel() {
 
     var weeks = listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cts", "Paz")
     init {
-        getCalendarData()
+       // val calendar = Calendar.getInstance()
+       // getCalendarData(calendar)
     }
+
+
 
     fun selectedData(mountIndex:Int,dayIndex:Int) {
 
@@ -73,9 +81,16 @@ class DateViewModel : ViewModel() {
     }
 
 
-    fun getCalendarData() {
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    fun createCalender(getDepartureDate:String,getReturnDate:String,control:Boolean) {
+        navTitle.value = if (control) "Departure Date" else "Return Date"
 
+
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+      //  Log.e("getDepartureDate dateviewmodel","${getDepartureDate}")
+        val format = "MMMM dd,yyyy"
+        val departureCalender = convertToCalendar(getDepartureDate,format)
+        val returnCalender = convertToCalendar(getReturnDate,format)
+       // Log.e("getDepartureDate dateviewmodel","${departureCalender}")
 
 
         val dayFormat = SimpleDateFormat("d", Locale.getDefault())
@@ -121,11 +136,23 @@ class DateViewModel : ViewModel() {
                 val rangeLocalDate = LocalDate.of(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH) + 1,day)
                 val type:DateValueType
                 val diff = ChronoUnit.DAYS.between(todayLocalDate,rangeLocalDate)
+                val departureLocalDate = LocalDate.of(
+                    departureCalender.get(Calendar.YEAR),
+                    departureCalender.get(Calendar.MONTH)+1,
+                    departureCalender.get(Calendar.DAY_OF_MONTH))
+                var returnLocalDate = LocalDate.of(
+                    returnCalender.get(Calendar.YEAR),
+                    returnCalender.get(Calendar.MONTH)+1,
+                    returnCalender.get(Calendar.DAY_OF_MONTH))
 
-                if (diff < 0){
-                    type  =  DateValueType.DISABLE
-                }else if (diff.toInt() == 0 ){
+                if(rangeLocalDate == departureLocalDate || rangeLocalDate == returnLocalDate){
+                    type  =  DateValueType.Selected
+                }else if (todayLocalDate == rangeLocalDate ){
                     type  =  DateValueType.NOw
+                }else if( (control && todayLocalDate > rangeLocalDate) || (!control && departureLocalDate > rangeLocalDate)  ){
+                    type  =  DateValueType.DISABLE
+                }else if(departureCalender<rangeCalendar && rangeCalendar < returnCalender){
+                    type = DateValueType.Between
                 }else{
                     type  =  DateValueType.DefaultDate
                 }
@@ -156,6 +183,15 @@ class DateViewModel : ViewModel() {
         }
 
 
+    }
+
+    //TODO : this is will made extension
+    fun convertToCalendar(dateStr: String, format: String): Calendar {
+        val formatter = SimpleDateFormat(format)
+        val date = formatter.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar
     }
 
 

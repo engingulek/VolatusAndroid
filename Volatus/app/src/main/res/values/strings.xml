@@ -13,5 +13,7 @@
     <string name="roundTrip">Round Trip</string>
     <string name="searchPlaceholder">Search Airport</string>
     <string name="airportListTitle">Airport List</string>
+    <string name="departureTitle">Departure Date</string>
+    <string name="returnDateTitle">Return Date</string>
 
 </resources>
