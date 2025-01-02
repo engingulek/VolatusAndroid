@@ -63,8 +63,8 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
     val dayCalendar by viewModel.daysCalender.collectAsState()
      Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
          LazyColumn {
-             items(mount.keys.size) { index ->
-                 val monthAndYear = mount[index]
+             items(mount.keys.size) { mountIndex ->
+                 val monthAndYear = mount[mountIndex]
 
                  Column(modifier = Modifier.padding(vertical = 10.dp)) {
                      Text(monthAndYear ?: "", style = TextStyle(
@@ -99,7 +99,7 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
                          }
 
                      }
-                     val days = dayCalendar[index] ?: emptyList()
+                     val days = dayCalendar[mountIndex] ?: emptyList()
                      LazyVerticalGrid(
                          columns = GridCells.Fixed(7),
                          modifier = Modifier.fillMaxWidth()
@@ -107,12 +107,14 @@ fun DateScreen(viewModel: DateViewModel = DateViewModel()) {
 
 
                      ) {
-                         items(days){ day ->
-
+                         items(days.size){ dayIndex ->
+                             val day = days[dayIndex]
                              if (day.second != null){
                                  Card(
                                      modifier = Modifier.padding(4.dp)
-                                         .clickable {  viewModel.selectedData(index)},
+                                         .clickable(
+                                             enabled = day.first != DateValueType.DISABLE
+                                         ) {  viewModel.selectedData(mountIndex,dayIndex)},
 
                                      colors = CardDefaults.cardColors(
                                          containerColor = day.first.getDateCardColor()

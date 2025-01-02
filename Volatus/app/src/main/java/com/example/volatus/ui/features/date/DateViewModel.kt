@@ -29,16 +29,40 @@ class DateViewModel : ViewModel() {
 
     val mountCalender = MutableStateFlow(mutableMapOf<Int, String>())
     var daysCalender = MutableStateFlow(mutableMapOf<Int,List<Pair<DateValueType,String?>>>())
+    private var selected:Boolean = false
+    private  var oldMountIndex : Int = -1
+    private  var oldDayIndex:Int = -1
 
 
     var weeks = listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cts", "Paz")
     init {
         getCalendarData()
     }
+    
+    fun selectedData(mountIndex:Int,dayIndex:Int) {
+
+        if (selected) {
+            selected = false
+            updateDay(oldMountIndex, oldDayIndex, DateValueType.DefaultDate)
+            updateDay(mountIndex, dayIndex, DateValueType.Selected)
+            selected = true
+        } else {
+            updateDay(mountIndex, dayIndex, DateValueType.Selected)
+            selected = true
+        }
+
+        oldMountIndex = mountIndex
+        oldDayIndex = dayIndex
 
 
-    fun selectedData(index:Int) {
-        Log.e("index","${index}")
+    }
+
+    private fun updateDay(mountIndex: Int, dayIndex: Int, dateType: DateValueType) {
+        val currentMap = daysCalender.value.toMutableMap()
+        val targetList = currentMap[mountIndex]?.toMutableList() ?: return
+        targetList[dayIndex] = targetList[dayIndex].copy(first = dateType)
+        currentMap[mountIndex] = targetList
+        daysCalender.value = currentMap
     }
 
 
