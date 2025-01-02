@@ -2,6 +2,7 @@ package com.example.volatus.ui.features.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,10 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
-fun PassengerComponent(state:HomeContract.PassengerState) {
+fun PassengerComponent(
+    state:HomeContract.PassengerState,
+    navigation:() -> Unit
+) {
     Column( modifier = Modifier
         .fillMaxWidth()
 
@@ -31,9 +35,10 @@ fun PassengerComponent(state:HomeContract.PassengerState) {
         )
         .background(color = Color.White)
         .padding(16.dp)
+        .clickable(onClick = navigation)
     ) {
         Text(stringResource(state.title))
-        Text(state.passengers,
+        Text(state.passengerText,
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold)
@@ -44,6 +49,6 @@ fun PassengerComponent(state:HomeContract.PassengerState) {
 @Preview(showBackground = true)
 @Composable
 fun PassengerComponentPreview() {
-    PassengerComponent(state = HomeContract.PassengerState(title = R.string.passenger, passengers = "1 Adult"))
+    PassengerComponent(state = HomeContract.PassengerState(title = R.string.passenger), navigation = {})
 
 }

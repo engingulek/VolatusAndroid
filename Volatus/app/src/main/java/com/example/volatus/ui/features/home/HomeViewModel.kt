@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
+import com.example.volatus.ui.features.passenger.Passenger
 import kotlinx.coroutines.IO_PARALLELISM_PROPERTY_NAME
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +22,7 @@ interface HomeViewModelInterface{
 
 
     fun onAction(uiAction: HomeContract.UiAction)
+    fun publicOnAction(onAction:HomeContract.PublicUiAction)
 }
 
 
@@ -50,14 +52,34 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     private  val formatter = DateTimeFormatter.ofPattern("MMMM dd,yyyy")
 
     init {
-        _passengerState.value = _passengerState.value.copy(
-            passengers = "1 Adult"
-        )
+
 
         _dateState.value = _dateState.value.copy(
             departureDate = formatter.format(LocalDate.now()),
             returnDate =  formatter.format(LocalDate.now())
         )
+
+        val passengerList:List<Passenger> = listOf(
+            Passenger(title = "Adult",
+                ageSpaceTitle = R.string.adult_range_title,
+                1,true),
+            Passenger(title = "Child",
+                ageSpaceTitle = R.string.child_range_title,
+                0,true),
+            Passenger(title = "Baby",
+                ageSpaceTitle = R.string.baby_range_title,
+                0,true),
+        )
+
+        val list = passengerList.map { if (it.count != 0) "${it.count} ${it.title}" else "" }
+        val text = list.filter { it.isNotEmpty() }.joinToString(",")
+
+        _passengerState.value = _passengerState.value.copy(
+            passengerList = passengerList,
+            passengerText = text
+        )
+
+
     }
 
 
@@ -67,10 +89,20 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
 
             HomeContract.UiAction.OnClickOneWay ->  clickedOneWay()
             HomeContract.UiAction.OnClickRoundedTrip ->clickedRoundedWay()
-            is HomeContract.UiAction.selectedAirport -> selectedAirportAction(uiAction.type,uiAction.airport)
             HomeContract.UiAction.OnClickSwapIcon -> onClickSwapIconAction()
-            is HomeContract.UiAction.selectedDate -> selectedDateAction(uiAction.type,uiAction.date)
+            //TODO: These will be moved to publicOnAction
+
+
         }
+    }
+
+    override fun publicOnAction(onAction: HomeContract.PublicUiAction) {
+        when(onAction){
+            is HomeContract.PublicUiAction.updatePassengerList -> updatePassengerListAction(onAction.passengerList)
+            is HomeContract.PublicUiAction.selectedAirport ->  selectedAirportAction(onAction.type,onAction.airport)
+            is HomeContract.PublicUiAction.selectedDate -> selectedDateAction(onAction.type,onAction.date)
+        }
+
     }
 
     private fun clickedOneWay(){
@@ -158,8 +190,16 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
             toLocation = _locationState.value.fromLocation
 
         )
+    }
 
+    private fun updatePassengerListAction(passengerList:List<Passenger>){
+        val list = passengerList.map { if (it.count != 0) "${it.count} ${it.title}" else "" }
+        val text = list.filter { it.isNotEmpty() }.joinToString(",")
 
+        _passengerState.value = _passengerState.value.copy(
+            passengerList = passengerList,
+            passengerText = text
+        )
     }
 
 

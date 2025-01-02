@@ -15,5 +15,16 @@
     <string name="airportListTitle">Airport List</string>
     <string name="departureTitle">Departure Date</string>
     <string name="returnDateTitle">Return Date</string>
+    <string name="confirmButton">Confirm</string>
+    <string name="adult_title">Adult</string>
+    <string name="adult_range_title">18+ age</string>
+
+    <string name="child_title">Child</string>
+    <string name="child_range_title">2-18 age</string>
+
+    <string name="baby_title">Baby</string>
+    <string name="baby_range_title">0-2 age</string>
+    <string name="addIcon">Add Icon</string>
+    <string name="minusIcon">Minus Icon</string>
 
 </resources>

@@ -17,6 +17,8 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.features.home.HomeContract
 import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
+import com.example.volatus.ui.features.passenger.PassengerScreen
+import com.example.volatus.ui.features.passenger.PassengerViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -25,6 +27,7 @@ fun AppNavigation(
     navHostController: NavHostController,
     homeViewModel: HomeViewModelInterface,
     dateViewModel: DateViewModel,
+    passengerViewModel:PassengerViewModelInterface
 ) {
     NavHost(
         modifier = modifier,
@@ -46,6 +49,11 @@ fun AppNavigation(
                         control = dateType
                         )
                     navHostController.navigate("dateScreen/$dateType")
+                },
+                navigationToPassenger = {
+                    val passengerList = homeViewModel.passengerState.value.passengerList
+                    passengerViewModel.getPassengerList(passengerList)
+                    navHostController.navigate("passengerScreen")
                 }
 
             )
@@ -56,7 +64,7 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
-                selectAirport = {homeViewModel.onAction(HomeContract.UiAction.selectedAirport(type= type,it))},
+                selectAirport = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedAirport(type= type,it))},
                 onBack = {navHostController.popBackStack()}
             )
         }
@@ -69,9 +77,17 @@ fun AppNavigation(
 
             DateScreen(
                 viewModel = dateViewModel,
-               selectDateAction = {homeViewModel.onAction(HomeContract.UiAction.selectedDate(type = dateType,it))},
+               selectDateAction = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedDate(type = dateType,it))},
                 onBack = {navHostController.popBackStack()}
 
+            )
+        }
+
+        composable("passengerScreen"){
+            PassengerScreen(
+                viewModel = passengerViewModel,
+                updatePassenger = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.updatePassengerList(it))},
+                onBack = {navHostController.popBackStack()}
             )
         }
 

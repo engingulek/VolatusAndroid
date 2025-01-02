@@ -39,7 +39,8 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 fun HomeScreen(
     viewModel:HomeViewModelInterface,
     navigationToAirportList:(Boolean) -> Unit,
-    navigationToDateScreen:(Boolean) -> Unit
+    navigationToDateScreen:(Boolean) -> Unit,
+    navigationToPassenger:() -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -141,7 +142,10 @@ fun HomeScreen(
                         )
                 }
 
-                PassengerComponent(state = passengerState)
+                PassengerComponent(
+                    state = passengerState,
+                    navigation = {navigationToPassenger()}
+                )
 
                 SearchButtonComponent(title = state.searchButtonTitle)
             }
@@ -153,5 +157,5 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {}, navigationToDateScreen = {})
+    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {}, navigationToDateScreen = {}, navigationToPassenger = {})
 }
