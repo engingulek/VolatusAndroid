@@ -10,6 +10,8 @@ import androidx.navigation.NavType
 import com.example.volatus.ui.features.home.HomeScreen
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.volatus.hilt.shared.SharedContract
+import com.example.volatus.hilt.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.airtportList.AirportListScreen
 import com.example.volatus.ui.features.date.DateScreen
@@ -25,6 +27,7 @@ import com.example.volatus.ui.features.passenger.PassengerViewModelInterface
 fun AppNavigation(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface
@@ -40,18 +43,19 @@ fun AppNavigation(
 
             HomeScreen(
                 viewModel = homeViewModel,
+                sharedModel = sharedModel,
                 navigationToAirportList = { type ->
                     navHostController.navigate("airportList/$type")},
                 navigationToDateScreen = { dateType ->
                     dateViewModel.createCalender(
-                        homeViewModel.dateState.value.departureDate,
-                        homeViewModel.dateState.value.returnDate,
+                        sharedModel.dateState.value.departureDateText,
+                        sharedModel.dateState.value.returnDateText,
                         control = dateType
                         )
                     navHostController.navigate("dateScreen/$dateType")
                 },
                 navigationToPassenger = {
-                    val passengerList = homeViewModel.passengerState.value.passengerList
+                    val passengerList = sharedModel.passengerState.value.passengerList
                     passengerViewModel.getPassengerList(passengerList)
                     navHostController.navigate("passengerScreen")
                 }
@@ -64,7 +68,8 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
-                selectAirport = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedAirport(type= type,it))},
+
+               selectAirport = {sharedModel.onAction(SharedContract.SharedAction.selectedAirport(type=type,it))},
                 onBack = {navHostController.popBackStack()}
             )
         }
@@ -77,7 +82,8 @@ fun AppNavigation(
 
             DateScreen(
                 viewModel = dateViewModel,
-               selectDateAction = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedDate(type = dateType,it))},
+                sharedModel = sharedModel,
+               selectDateAction = {sharedModel.onAction(SharedContract.SharedAction.selectedDate(type = dateType,it))},
                 onBack = {navHostController.popBackStack()}
 
             )
@@ -86,7 +92,7 @@ fun AppNavigation(
         composable("passengerScreen"){
             PassengerScreen(
                 viewModel = passengerViewModel,
-                updatePassenger = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.updatePassengerList(it))},
+                updatePassenger = {sharedModel.onAction(SharedContract.SharedAction.updatePassengerList(it))},
                 onBack = {navHostController.popBackStack()}
             )
         }

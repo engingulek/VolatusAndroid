@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.volatus.hilt.shared.SharedModel
 import com.example.volatus.utils.getDateCardColor
 
 import com.example.volatus.utils.getDateColor
@@ -59,6 +60,7 @@ import java.util.*
 @Composable
 fun DateScreen(
     viewModel: DateViewModel,
+    sharedModel:SharedModel,
     selectDateAction:(LocalDate) -> Unit,
     onBack: () -> Unit
 

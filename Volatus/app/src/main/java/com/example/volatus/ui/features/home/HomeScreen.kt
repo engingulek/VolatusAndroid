@@ -28,6 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.volatus.hilt.shared.SharedContract
+import com.example.volatus.hilt.shared.SharedModel
 import com.example.volatus.ui.features.home.components.LocationComponent
 import com.example.volatus.ui.features.home.components.PassengerComponent
 import com.example.volatus.ui.features.home.components.SearchButtonComponent
@@ -38,16 +40,19 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 @Composable
 fun HomeScreen(
     viewModel:HomeViewModelInterface,
+    sharedModel : SharedModel,
     navigationToAirportList:(Boolean) -> Unit,
     navigationToDateScreen:(Boolean) -> Unit,
     navigationToPassenger:() -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
-    val dateState by viewModel.dateState.collectAsState()
     val tripState  by viewModel.tripState.collectAsState()
-    val locationState by viewModel.locationState.collectAsState()
-    val passengerState by viewModel.passengerState.collectAsState()
+    val airportState by sharedModel.airportUiState.collectAsState()
+    val dateState by sharedModel.dateState.collectAsState()
+    val passengerState by sharedModel.passengerState.collectAsState()
+
+
 
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -105,8 +110,8 @@ fun HomeScreen(
                 }
 
                 LocationComponent(
-                    title = locationState.fromTitle,
-                    location = locationState.fromLocation,
+                    title = state.fromTitle,
+                    location = airportState.fromAirportTextString,
                     navigation = {navigationToAirportList(true)})
 
                 Image(
@@ -115,34 +120,37 @@ fun HomeScreen(
                     modifier = Modifier
                         .size(40.dp)
                         .clickable {
-                            viewModel.onAction(HomeContract.UiAction.OnClickSwapIcon)
+                            sharedModel.onAction(SharedContract.SharedAction.onTappedSwapIcon)
                         }
                 )
 
                 LocationComponent(
-                    title = locationState.toTitle,
-                    location = locationState.toLocation,
+                    title = state.toTitle,
+                    location = airportState.toAirportText,
                     navigation = {navigationToAirportList(false)}
                 )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement =
-                    if (!dateState.returnVisible) Arrangement.SpaceBetween
+                    if (!state.returnVisible) Arrangement.SpaceBetween
                     else Arrangement.Center
 
                 ) {
-                    TimeComponent(dateState.departureTitle,
-                        dateText = dateState.departureDate,
+                    TimeComponent(
+                        state.departureTitle,
+                        dateText = dateState.departureDateText,
                         navigation = {navigationToDateScreen(true)})
-                    if (!dateState.returnVisible)
-                        TimeComponent(dateState.returnTitle,
-                            dateText = dateState.returnDate,
+                    if (!state.returnVisible)
+                        TimeComponent(
+                            state.returnTitle,
+                            dateText = dateState.returnDateText,
                             navigation = { navigationToDateScreen(false) }
                         )
                 }
 
                 PassengerComponent(
+                    title = state.passengerTitle,
                     state = passengerState,
                     navigation = {navigationToPassenger()}
                 )
@@ -157,5 +165,10 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {}, navigationToDateScreen = {}, navigationToPassenger = {})
+    HomeScreen(
+        viewModel = HomeViewModel(),
+        sharedModel = SharedModel(),
+        navigationToAirportList = {},
+        navigationToDateScreen = {},
+        navigationToPassenger = {})
 }

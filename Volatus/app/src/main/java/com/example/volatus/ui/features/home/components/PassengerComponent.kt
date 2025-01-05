@@ -18,11 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
+import com.example.volatus.hilt.shared.SharedContract
 import com.example.volatus.ui.features.home.HomeContract
 
 @Composable
 fun PassengerComponent(
-    state:HomeContract.PassengerState,
+    title:Int,
+    state:SharedContract.PassengerState,
     navigation:() -> Unit
 ) {
     Column( modifier = Modifier
@@ -37,7 +39,7 @@ fun PassengerComponent(
         .padding(16.dp)
         .clickable(onClick = navigation)
     ) {
-        Text(stringResource(state.title))
+        Text(stringResource(R.string.passenger))
         Text(state.passengerText,
             style = TextStyle(
                 fontSize = 20.sp,
@@ -46,9 +48,9 @@ fun PassengerComponent(
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun PassengerComponentPreview() {
-    PassengerComponent(state = HomeContract.PassengerState(title = R.string.passenger), navigation = {})
+    PassengerComponent(state = , navigation = {})
 
-}
+}*/

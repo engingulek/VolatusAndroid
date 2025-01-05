@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -70,6 +72,11 @@ dependencies {
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.4")
 
+    //material icons
     implementation("androidx.compose.material:material-icons-core:1.5.1")
     implementation("androidx.compose.material:material-icons-extended:1.5.1")
+
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 }

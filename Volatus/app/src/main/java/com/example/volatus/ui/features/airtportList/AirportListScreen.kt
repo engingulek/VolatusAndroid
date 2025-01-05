@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.volatus.hilt.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.components.AirportList
 import com.example.volatus.ui.features.airtportList.components.SearchComponent
 
@@ -20,7 +21,8 @@ import com.example.volatus.ui.features.airtportList.components.SearchComponent
 @Composable
 fun AirportListScreen(
     viewModel:AirportListViewModelInterface = AirportListViewModel(),
-    selectAirport:(Airport) -> Unit,
+   // sharedModel: SharedModel,
+   selectAirport:(Airport) -> Unit,
     onBack: () -> Unit
 
 ) {
@@ -43,7 +45,7 @@ fun AirportListScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AirportListScreenPreview() {
-    AirportListScreen(onBack = {}, selectAirport = {})
+    AirportListScreen(onBack = {},selectAirport = {})
 
 
 }

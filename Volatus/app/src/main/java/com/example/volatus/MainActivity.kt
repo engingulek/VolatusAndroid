@@ -17,12 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.volatus.hilt.shared.SharedModel
 import com.example.volatus.navigation.AppNavigation
 import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeScreen
 import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.passenger.PassengerViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +36,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
+                    val sharedModel = SharedModel()
                     AppNavigation(
                         modifier = Modifier.fillMaxSize().padding(innerPadding),
                         navHostController = navController,
+                        sharedModel,
                         homeViewModel = HomeViewModel(),
                         dateViewModel = DateViewModel(),
                         passengerViewModel = PassengerViewModel()
