@@ -41,7 +41,8 @@ fun HomeScreen(
     sharedModel : SharedModel,
     navigationToAirportList:(Boolean) -> Unit,
     navigationToDateScreen:(Boolean) -> Unit,
-    navigationToPassenger:() -> Unit
+    navigationToPassenger:() -> Unit,
+    navigationToDepartureTicketList:() -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -155,7 +156,8 @@ fun HomeScreen(
 
                 SearchButtonComponent(
                     title = state.searchButtonTitle,
-                    enable = airportState.airportState
+                    enable = airportState.airportState,
+                    onClicked = {navigationToDepartureTicketList()}
                 )
             }
         }
@@ -171,5 +173,5 @@ fun HomeScreenPreview() {
         sharedModel = SharedModel(),
         navigationToAirportList = {},
         navigationToDateScreen = {},
-        navigationToPassenger = {})
+        navigationToPassenger = {}, navigationToDepartureTicketList = {})
 }

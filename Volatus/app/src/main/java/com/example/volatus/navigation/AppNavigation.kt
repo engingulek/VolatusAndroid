@@ -17,6 +17,9 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
 import com.example.volatus.ui.features.passenger.PassengerScreen
 import com.example.volatus.ui.features.passenger.PassengerViewModelInterface
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListScreen
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -26,7 +29,8 @@ fun AppNavigation(
     sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
     dateViewModel: DateViewModel,
-    passengerViewModel:PassengerViewModelInterface
+    passengerViewModel:PassengerViewModelInterface,
+    departureTicketListViewModel: DepartureTicketListViewModelInterface,
 ) {
     NavHost(
         modifier = modifier,
@@ -54,6 +58,12 @@ fun AppNavigation(
                     val passengerList = sharedModel.passengerState.value.passengerList
                     passengerViewModel.getPassengerList(passengerList)
                     navHostController.navigate("passengerScreen")
+                },
+
+                navigationToDepartureTicketList = {
+                    val departureDate = sharedModel.dateState.value.departureDate
+                    departureTicketListViewModel.createDatePrice(departureDate)
+                    navHostController.navigate(route ="departureTicketList" )
                 }
 
             )
@@ -91,6 +101,13 @@ fun AppNavigation(
                 updatePassenger = {sharedModel.onAction(SharedContract.SharedAction.updatePassengerList(it))},
                 onBack = {navHostController.popBackStack()}
             )
+        }
+
+        composable("departureTicketList") {
+            DepartureTicketListScreen(
+                viewModel = departureTicketListViewModel,
+                sharedModel = sharedModel
+                )
         }
 
 

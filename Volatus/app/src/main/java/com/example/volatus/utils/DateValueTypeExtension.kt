@@ -22,5 +22,4 @@ fun DateValueType.getDateCardColor() : Color {
         DateValueType.Selected -> return  Color.Red
         DateValueType.Between -> return  Color.Red.copy(alpha = 0.5f)
     }
-
 }

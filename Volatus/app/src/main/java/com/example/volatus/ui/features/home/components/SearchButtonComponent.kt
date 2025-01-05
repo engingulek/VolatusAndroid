@@ -18,10 +18,11 @@ import com.example.volatus.R
 @Composable
 fun SearchButtonComponent(
     title:Int,
-    enable:Boolean
+    enable:Boolean,
+    onClicked:()-> Unit
 ) {
     Button(
-        onClick = { },
+        onClick = onClicked,
         enabled = enable,
         modifier = Modifier.fillMaxWidth()
             .height(50.dp),
@@ -42,5 +43,5 @@ fun SearchButtonComponent(
 @Preview(showBackground = true)
 @Composable
 fun SearchButtonComponentPreview() {
-    SearchButtonComponent(title = R.string.search, enable = false)
+    SearchButtonComponent(title = R.string.search, enable = false, onClicked = {})
 }

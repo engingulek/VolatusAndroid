@@ -15,6 +15,7 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.passenger.PassengerViewModel
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
                         sharedModel,
                         homeViewModel = HomeViewModel(),
                         dateViewModel = DateViewModel(),
-                        passengerViewModel = PassengerViewModel()
+                        passengerViewModel = PassengerViewModel(),
+                        departureTicketListViewModel = DepartureTicketListViewModel()
                     )
 
                 }
