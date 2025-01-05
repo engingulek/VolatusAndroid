@@ -14,17 +14,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
-import com.example.volatus.hilt.shared.SharedContract
-import com.example.volatus.ui.features.home.HomeContract
+import com.example.volatus.shared.SharedContract
 
 @Composable
 fun PassengerComponent(
     title:Int,
-    state:SharedContract.PassengerState,
+    state: SharedContract.PassengerState,
     navigation:() -> Unit
 ) {
     Column( modifier = Modifier

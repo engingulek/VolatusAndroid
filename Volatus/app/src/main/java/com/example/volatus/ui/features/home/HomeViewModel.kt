@@ -1,20 +1,10 @@
 package com.example.volatus.ui.features.home
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
-import com.example.volatus.hilt.shared.SharedContract
-import com.example.volatus.ui.features.airtportList.Airport
-import com.example.volatus.ui.features.passenger.Passenger
-import kotlinx.coroutines.IO_PARALLELISM_PROPERTY_NAME
+import com.example.volatus.shared.SharedContract
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 interface HomeViewModelInterface{
     var uiState : StateFlow<HomeContract.UiState>

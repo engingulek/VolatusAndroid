@@ -1,16 +1,17 @@
-package com.example.volatus.hilt.shared
+package com.example.volatus.shared
 
-import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.passenger.Passenger
 import java.time.LocalDate
 
 object SharedContract {
+
     data class AirportUiState(
         var fromAirport:Airport? = null,
         var fromAirportTextString: String = "Choose",
         var toAirport: Airport? = null,
-        var toAirportText:String = "Choose"
+        var toAirportText:String = "Choose",
+        var airportState : Boolean = false
     )
 
     data class DateState(
@@ -33,6 +34,6 @@ object SharedContract {
         data class selectedAirport(var type:Boolean?,var airport: Airport) : SharedAction
         data object onTappedSwapIcon: SharedAction
          data class selectedDate(var type:Boolean?,var date: LocalDate) : SharedAction
-       data class updatePassengerList(var passengerList: List<Passenger>):SharedAction
+       data class updatePassengerList(var passengerList: List<Passenger>): SharedAction
     }
 }

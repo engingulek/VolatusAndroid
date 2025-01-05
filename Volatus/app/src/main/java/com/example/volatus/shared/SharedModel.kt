@@ -1,15 +1,13 @@
-package com.example.volatus.hilt.shared
+package com.example.volatus.shared
 
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.passenger.Passenger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import javax.inject.Inject
 
 
 class SharedModel  : ViewModel(){
@@ -21,6 +19,9 @@ class SharedModel  : ViewModel(){
 
     private val _passengerState = MutableStateFlow(SharedContract.PassengerState())
     var passengerState : StateFlow<SharedContract.PassengerState> = _passengerState
+
+    private var fromAirport:Airport? = null
+    private var toAirport:Airport? = null
 
     init {
         val formatter = DateTimeFormatter.ofPattern("MMMM dd,yyyy")
@@ -53,7 +54,7 @@ class SharedModel  : ViewModel(){
     }
 
 
-    fun onAction(onAction:SharedContract.SharedAction) {
+    fun onAction(onAction: SharedContract.SharedAction) {
         when(onAction) {
             is SharedContract.SharedAction.selectedAirport -> updateAirport(onAction.type,onAction.airport)
              is SharedContract.SharedAction.selectedDate -> selectedDate(onAction.type,onAction.date)
@@ -63,6 +64,8 @@ class SharedModel  : ViewModel(){
         }
     }
 
+
+
    private fun updateAirport(type:Boolean?,airport: Airport){
         type?.let {
             if (it) {
@@ -70,12 +73,18 @@ class SharedModel  : ViewModel(){
                     fromAirport = airport,
                     fromAirportTextString = "${airport.code} - ${airport.name}"
                 )
+                fromAirport = airport
             }else{
                 _airportUiState.value = _airportUiState.value.copy(
                     toAirport = airport,
                     toAirportText = "${airport.code} - ${airport.name}"
                 )
+                toAirport = airport
             }
+
+            _airportUiState.value = _airportUiState.value.copy(
+                airportState =  toAirport != null && fromAirport != null
+            )
         }
     }
 
