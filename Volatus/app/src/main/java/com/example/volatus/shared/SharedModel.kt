@@ -110,6 +110,13 @@ class SharedModel  : ViewModel(){
                     departureDate = selectedDate,
                     departureDateText = dateText
                 )
+                val returnDate = _dateState.value.returnDate
+                if (selectedDate > returnDate ) {
+                    _dateState.value = _dateState.value.copy(
+                        returnDate = selectedDate,
+                        returnDateText = dateText
+                    )
+                }
             }else{
                 _dateState.value = _dateState.value.copy(
                     returnDate = selectedDate,
