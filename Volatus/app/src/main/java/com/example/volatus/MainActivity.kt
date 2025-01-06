@@ -15,6 +15,7 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.passenger.PassengerViewModel
+import com.example.volatus.ui.features.passengerInfo.PassengerInfoViewModel
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModel
 
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
                         dateViewModel = DateViewModel(),
                         passengerViewModel = PassengerViewModel(),
                         departureTicketListViewModel = DepartureTicketListViewModel(),
-                        returnTicketListViewModel = ReturnTicketListViewModel()
+                        returnTicketListViewModel = ReturnTicketListViewModel(),
+                        passengerInfoViewModel = PassengerInfoViewModel()
                     )
 
                 }
