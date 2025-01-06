@@ -26,5 +26,6 @@
     <string name="baby_range_title">0-2 age</string>
     <string name="addIcon">Add Icon</string>
     <string name="minusIcon">Minus Icon</string>
+    <string name="timeIcon">Time Icon</string>
 
 </resources>

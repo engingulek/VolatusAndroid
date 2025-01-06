@@ -1,6 +1,7 @@
 package com.example.volatus.ui.theme
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.ui.graphics.Color
@@ -45,3 +46,11 @@ val addIcon = IconVectorType(
     color = Color.Red,
     enabledColor = Color.Red
 )
+
+val hourIcon = IconVectorType(
+    image = Icons.Default.AccessTimeFilled,
+    contentDescription = R.string.timeIcon,
+    color = Color.Black,
+    enabledColor = Color.Black
+)
+

@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -28,6 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.volatus.shared.SharedContract
+import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.home.components.LocationComponent
 import com.example.volatus.ui.features.home.components.PassengerComponent
 import com.example.volatus.ui.features.home.components.SearchButtonComponent
@@ -38,16 +38,20 @@ import com.example.volatus.ui.features.home.components.TripTypeComponent
 @Composable
 fun HomeScreen(
     viewModel:HomeViewModelInterface,
+    sharedModel : SharedModel,
     navigationToAirportList:(Boolean) -> Unit,
     navigationToDateScreen:(Boolean) -> Unit,
-    navigationToPassenger:() -> Unit
+    navigationToPassenger:() -> Unit,
+    navigationToDepartureTicketList:() -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
-    val dateState by viewModel.dateState.collectAsState()
     val tripState  by viewModel.tripState.collectAsState()
-    val locationState by viewModel.locationState.collectAsState()
-    val passengerState by viewModel.passengerState.collectAsState()
+    val airportState by sharedModel.airportUiState.collectAsState()
+    val dateState by sharedModel.dateState.collectAsState()
+    val passengerState by sharedModel.passengerState.collectAsState()
+
+
 
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -96,17 +100,23 @@ fun HomeScreen(
                     TripTypeComponent(
                         type = tripState.oneWayTripeType,
                         title = tripState.oneWayTitle,
-                        onClick = oneWay)
+                        onClick = {
+                            oneWay()
+                            sharedModel.onAction(SharedContract.SharedAction.updateReturnState(false))
+                        })
 
                    TripTypeComponent(
                         type = tripState.roundedTripeType,
                        title = tripState.roundedTitle,
-                        onClick = roundedTrip)
+                        onClick = {
+                            roundedTrip()
+                            sharedModel.onAction(SharedContract.SharedAction.updateReturnState(true))
+                        })
                 }
 
                 LocationComponent(
-                    title = locationState.fromTitle,
-                    location = locationState.fromLocation,
+                    title = state.fromTitle,
+                    location = airportState.fromAirportTextString,
                     navigation = {navigationToAirportList(true)})
 
                 Image(
@@ -115,39 +125,46 @@ fun HomeScreen(
                     modifier = Modifier
                         .size(40.dp)
                         .clickable {
-                            viewModel.onAction(HomeContract.UiAction.OnClickSwapIcon)
+                            sharedModel.onAction(SharedContract.SharedAction.onTappedSwapIcon)
                         }
                 )
 
                 LocationComponent(
-                    title = locationState.toTitle,
-                    location = locationState.toLocation,
+                    title = state.toTitle,
+                    location = airportState.toAirportText,
                     navigation = {navigationToAirportList(false)}
                 )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement =
-                    if (!dateState.returnVisible) Arrangement.SpaceBetween
+                    if (!state.returnVisible) Arrangement.SpaceBetween
                     else Arrangement.Center
 
                 ) {
-                    TimeComponent(dateState.departureTitle,
-                        dateText = dateState.departureDate,
+                    TimeComponent(
+                        state.departureTitle,
+                        dateText = dateState.departureDateText,
                         navigation = {navigationToDateScreen(true)})
-                    if (!dateState.returnVisible)
-                        TimeComponent(dateState.returnTitle,
-                            dateText = dateState.returnDate,
+                    if (!state.returnVisible)
+                        TimeComponent(
+                            state.returnTitle,
+                            dateText = dateState.returnDateText,
                             navigation = { navigationToDateScreen(false) }
                         )
                 }
 
                 PassengerComponent(
+                    title = state.passengerTitle,
                     state = passengerState,
                     navigation = {navigationToPassenger()}
                 )
 
-                SearchButtonComponent(title = state.searchButtonTitle)
+                SearchButtonComponent(
+                    title = state.searchButtonTitle,
+                    enable = airportState.airportState,
+                    onClicked = {navigationToDepartureTicketList()}
+                )
             }
         }
 
@@ -157,5 +174,10 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(viewModel = HomeViewModel(),navigationToAirportList = {}, navigationToDateScreen = {}, navigationToPassenger = {})
+    HomeScreen(
+        viewModel = HomeViewModel(),
+        sharedModel = SharedModel(),
+        navigationToAirportList = {},
+        navigationToDateScreen = {},
+        navigationToPassenger = {}, navigationToDepartureTicketList = {})
 }

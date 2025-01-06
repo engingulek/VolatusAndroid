@@ -83,104 +83,104 @@ class DateViewModel : ViewModel() {
 
     fun createCalender(getDepartureDate:String,getReturnDate:String,control:Boolean) {
         navTitle.value = if (control) "Departure Date" else "Return Date"
+        Log.e("date control","${getDepartureDate} ${getReturnDate}")
 
-
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+       val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
       //  Log.e("getDepartureDate dateviewmodel","${getDepartureDate}")
         val format = "MMMM dd,yyyy"
-        val departureCalender = convertToCalendar(getDepartureDate,format)
-        val returnCalender = convertToCalendar(getReturnDate,format)
-       // Log.e("getDepartureDate dateviewmodel","${departureCalender}")
+     val departureCalender = convertToCalendar(getDepartureDate,format)
+         val returnCalender = convertToCalendar(getReturnDate,format)
+         // Log.e("getDepartureDate dateviewmodel","${departureCalender}")
 
 
-        val dayFormat = SimpleDateFormat("d", Locale.getDefault())
-        val monthFormat = SimpleDateFormat("MMMM/yyyy", Locale.getDefault())
-        val controlDate = SimpleDateFormat("d/MMMM/yyyy", Locale.getDefault())
-
-
-
-        for (i in 0..2) {
-            val monthData = mutableMapOf<String, List<Pair<DateValueType,String?>>>()
-
-            val counter = if (i == 0) 0 else 1
-           calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + counter)
-
-            val firstDayOfMonth = calendar.getActualMinimum(Calendar.DAY_OF_MONTH)
-            val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-
-            // Haftanın gününü bul
-            calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonth)
-            val startWeekDay = calendar.get(Calendar.DAY_OF_WEEK) - 2
-
-            val daysInMonth = mutableListOf<Pair<DateValueType,String?>>()
-            val daysList = mutableListOf<Pair<DateValueType, Int?>>()
-            val datesList = mutableListOf<Date>()
-            // İlk gün için boş hücreler ekle
-            for (j in 0 until startWeekDay) {
-                daysInMonth.add(Pair(DateValueType.DISABLE,null))
-              daysList.add(Pair(DateValueType.DISABLE,null))
-
-            }
-
-
-            // Günü listeye ekle
-            for (day in firstDayOfMonth..lastDayOfMonth) {
-                val rangeCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-                rangeCalendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),day)
-                rangeCalendar.timeZone = TimeZone.getTimeZone("UTC")
+            val dayFormat = SimpleDateFormat("d", Locale.getDefault())
+            val monthFormat = SimpleDateFormat("MMMM/yyyy", Locale.getDefault())
+            val controlDate = SimpleDateFormat("d/MMMM/yyyy", Locale.getDefault())
 
 
 
-                val todayLocalDate = LocalDate.now()
-                val rangeLocalDate = LocalDate.of(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH) + 1,day)
-                val type:DateValueType
-                val diff = ChronoUnit.DAYS.between(todayLocalDate,rangeLocalDate)
-                val departureLocalDate = LocalDate.of(
-                    departureCalender.get(Calendar.YEAR),
-                    departureCalender.get(Calendar.MONTH)+1,
-                    departureCalender.get(Calendar.DAY_OF_MONTH))
-                var returnLocalDate = LocalDate.of(
-                    returnCalender.get(Calendar.YEAR),
-                    returnCalender.get(Calendar.MONTH)+1,
-                    returnCalender.get(Calendar.DAY_OF_MONTH))
+            for (i in 0..2) {
+                val monthData = mutableMapOf<String, List<Pair<DateValueType,String?>>>()
 
-                if(rangeLocalDate == departureLocalDate || rangeLocalDate == returnLocalDate){
-                    type  =  DateValueType.Selected
-                }else if (todayLocalDate == rangeLocalDate ){
-                    type  =  DateValueType.NOw
-                }else if( (control && todayLocalDate > rangeLocalDate) || (!control && departureLocalDate > rangeLocalDate)  ){
-                    type  =  DateValueType.DISABLE
-                }else if(departureCalender<rangeCalendar && rangeCalendar < returnCalender){
-                    type = DateValueType.Between
-                }else{
-                    type  =  DateValueType.DefaultDate
+                val counter = if (i == 0) 0 else 1
+               calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + counter)
+
+                val firstDayOfMonth = calendar.getActualMinimum(Calendar.DAY_OF_MONTH)
+                val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+
+                // Haftanın gününü bul
+                calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonth)
+                val startWeekDay = calendar.get(Calendar.DAY_OF_WEEK) - 2
+
+                val daysInMonth = mutableListOf<Pair<DateValueType,String?>>()
+                val daysList = mutableListOf<Pair<DateValueType, Int?>>()
+                val datesList = mutableListOf<Date>()
+                // İlk gün için boş hücreler ekle
+                for (j in 0 until startWeekDay) {
+                    daysInMonth.add(Pair(DateValueType.DISABLE,null))
+                  daysList.add(Pair(DateValueType.DISABLE,null))
+
                 }
 
 
+                // Günü listeye ekle
+                for (day in firstDayOfMonth..lastDayOfMonth) {
+                    val rangeCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                    rangeCalendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),day)
+                    rangeCalendar.timeZone = TimeZone.getTimeZone("UTC")
 
-               datesList.add(rangeCalendar.time)
-               dates.add(Triple(i,day,rangeLocalDate))
 
 
-               daysList.add(Pair(type,day))
+                    val todayLocalDate = LocalDate.now()
+                    val rangeLocalDate = LocalDate.of(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH) + 1,day)
+                    val type:DateValueType
+                    val diff = ChronoUnit.DAYS.between(todayLocalDate,rangeLocalDate)
+                    val departureLocalDate = LocalDate.of(
+                        departureCalender.get(Calendar.YEAR),
+                        departureCalender.get(Calendar.MONTH)+1,
+                        departureCalender.get(Calendar.DAY_OF_MONTH))
+                    var returnLocalDate = LocalDate.of(
+                        returnCalender.get(Calendar.YEAR),
+                        returnCalender.get(Calendar.MONTH)+1,
+                        returnCalender.get(Calendar.DAY_OF_MONTH))
 
+                    if(rangeLocalDate == departureLocalDate || rangeLocalDate == returnLocalDate){
+                        type  =  DateValueType.Selected
+                    }else if (todayLocalDate == rangeLocalDate ){
+                        type  =  DateValueType.NOw
+                    }else if( (control && todayLocalDate > rangeLocalDate) || (!control && departureLocalDate > rangeLocalDate)  ){
+                        type  =  DateValueType.DISABLE
+                    }else if(departureCalender<rangeCalendar && rangeCalendar < returnCalender){
+                        type = DateValueType.Between
+                    }else{
+                        type  =  DateValueType.DefaultDate
+                    }
+
+
+
+                   datesList.add(rangeCalendar.time)
+                   dates.add(Triple(i,day,rangeLocalDate))
+
+
+                   daysList.add(Pair(type,day))
+
+
+
+                }
+
+
+                 daysCalender.value = daysCalender.value.toMutableMap().apply {
+                     put(i,daysList)
+                 }
+
+                mountCalender.value = mountCalender.value.toMutableMap().apply {
+                    put(i,monthFormat.format(calendar.time))
+                }
+                monthData[monthFormat.format(calendar.time)] = daysInMonth
 
 
             }
-
-
-             daysCalender.value = daysCalender.value.toMutableMap().apply {
-                 put(i,daysList)
-             }
-
-            mountCalender.value = mountCalender.value.toMutableMap().apply {
-                put(i,monthFormat.format(calendar.time))
-            }
-            monthData[monthFormat.format(calendar.time)] = daysInMonth
-
-
-        }
 
 
     }

@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,7 +18,8 @@ import com.example.volatus.ui.features.airtportList.components.SearchComponent
 @Composable
 fun AirportListScreen(
     viewModel:AirportListViewModelInterface = AirportListViewModel(),
-    selectAirport:(Airport) -> Unit,
+   // sharedModel: SharedModel,
+   selectAirport:(Airport) -> Unit,
     onBack: () -> Unit
 
 ) {
@@ -43,7 +42,7 @@ fun AirportListScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AirportListScreenPreview() {
-    AirportListScreen(onBack = {}, selectAirport = {})
+    AirportListScreen(onBack = {},selectAirport = {})
 
 
 }

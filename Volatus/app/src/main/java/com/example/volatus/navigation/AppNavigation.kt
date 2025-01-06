@@ -3,31 +3,38 @@ package com.example.volatus.navigation
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import com.example.volatus.ui.features.home.HomeScreen
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.volatus.ui.features.airtportList.Airport
+import com.example.volatus.shared.SharedContract
+import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.AirportListScreen
 import com.example.volatus.ui.features.date.DateScreen
 import com.example.volatus.ui.features.date.DateViewModel
-import com.example.volatus.ui.features.home.HomeContract
-import com.example.volatus.ui.features.home.HomeViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
 import com.example.volatus.ui.features.passenger.PassengerScreen
 import com.example.volatus.ui.features.passenger.PassengerViewModelInterface
+import com.example.volatus.ui.features.passengerInfo.PassengerInfoScreen
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListScreen
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
+import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModelInterface
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListScreen
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun AppNavigation(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
     dateViewModel: DateViewModel,
-    passengerViewModel:PassengerViewModelInterface
+    passengerViewModel:PassengerViewModelInterface,
+    departureTicketListViewModel: DepartureTicketListViewModelInterface,
+    returnTicketListViewModel:ReturnTicketListViewModelInterface
 ) {
     NavHost(
         modifier = modifier,
@@ -40,20 +47,27 @@ fun AppNavigation(
 
             HomeScreen(
                 viewModel = homeViewModel,
+                sharedModel = sharedModel,
                 navigationToAirportList = { type ->
                     navHostController.navigate("airportList/$type")},
                 navigationToDateScreen = { dateType ->
                     dateViewModel.createCalender(
-                        homeViewModel.dateState.value.departureDate,
-                        homeViewModel.dateState.value.returnDate,
+                        sharedModel.dateState.value.departureDateText,
+                        sharedModel.dateState.value.returnDateText,
                         control = dateType
                         )
                     navHostController.navigate("dateScreen/$dateType")
                 },
                 navigationToPassenger = {
-                    val passengerList = homeViewModel.passengerState.value.passengerList
+                    val passengerList = sharedModel.passengerState.value.passengerList
                     passengerViewModel.getPassengerList(passengerList)
                     navHostController.navigate("passengerScreen")
+                },
+
+                navigationToDepartureTicketList = {
+                    val departureDate = sharedModel.dateState.value.departureDate
+                    departureTicketListViewModel.createDatePrice(departureDate)
+                    navHostController.navigate(route ="departureTicketList" )
                 }
 
             )
@@ -64,7 +78,8 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
-                selectAirport = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedAirport(type= type,it))},
+
+               selectAirport = {sharedModel.onAction(SharedContract.SharedAction.selectedAirport(type=type,it))},
                 onBack = {navHostController.popBackStack()}
             )
         }
@@ -77,7 +92,8 @@ fun AppNavigation(
 
             DateScreen(
                 viewModel = dateViewModel,
-               selectDateAction = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.selectedDate(type = dateType,it))},
+                sharedModel = sharedModel,
+               selectDateAction = {sharedModel.onAction(SharedContract.SharedAction.selectedDate(type = dateType,it))},
                 onBack = {navHostController.popBackStack()}
 
             )
@@ -86,9 +102,34 @@ fun AppNavigation(
         composable("passengerScreen"){
             PassengerScreen(
                 viewModel = passengerViewModel,
-                updatePassenger = {homeViewModel.publicOnAction(HomeContract.PublicUiAction.updatePassengerList(it))},
+                updatePassenger = {sharedModel.onAction(SharedContract.SharedAction.updatePassengerList(it))},
                 onBack = {navHostController.popBackStack()}
             )
+        }
+
+        composable("departureTicketList") {
+            DepartureTicketListScreen(
+                viewModel = departureTicketListViewModel,
+                sharedModel = sharedModel,
+                navigationPassenger = { navHostController.navigate("passengerInfoScreen") },
+                navigationReturnTicketList = {
+                    val departureDate = sharedModel.dateState.value.departureDate
+                    val returnDate = sharedModel.dateState.value.returnDate
+                    returnTicketListViewModel.createDatePrice(departureDate,returnDate)
+                    navHostController.navigate("returnTicketListScreen") }
+                )
+        }
+
+
+        composable("passengerInfoScreen"){
+            PassengerInfoScreen()
+        }
+
+        composable("returnTicketListScreen"){
+            ReturnTicketListScreen(
+                viewModel = returnTicketListViewModel,
+                sharedModel = sharedModel,
+                navigationPassenger = { navHostController.navigate("passengerInfoScreen") })
         }
 
 
