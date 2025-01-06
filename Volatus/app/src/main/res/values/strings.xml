@@ -27,5 +27,15 @@
     <string name="addIcon">Add Icon</string>
     <string name="minusIcon">Minus Icon</string>
     <string name="timeIcon">Time Icon</string>
+    <string name="arrowDown">ArrowDown</string>
+    <string name="arrowUp">Arrow Up</string>
+    <string name="enterId">Enter TR ID</string>
+    <string name="enterName">Enter Name</string>
+    <string name="enterSurname">Enter Surname</string>
+    <string name="blankError">This field cannot be left blank</string>
+    <string name="shortError">this is too short</string>
+    <string name="checkId">Please check your TR Id</string>
+    <string name="datepickerIcon">datepickerIcon</string>
+    <string name="dateError">Check date of birth</string>
 
 </resources>
