@@ -20,6 +20,9 @@ class SharedModel  : ViewModel(){
     private val _passengerState = MutableStateFlow(SharedContract.PassengerState())
     var passengerState : StateFlow<SharedContract.PassengerState> = _passengerState
 
+    private  val _ticketState = MutableStateFlow(SharedContract.TicketState())
+    var ticketState : StateFlow<SharedContract.TicketState> = _ticketState
+
     private var fromAirport:Airport? = null
     private var toAirport:Airport? = null
 
@@ -61,6 +64,9 @@ class SharedModel  : ViewModel(){
 
             SharedContract.SharedAction.onTappedSwapIcon ->onTappedSwapIcon()
             is SharedContract.SharedAction.updatePassengerList -> updatePassengerListAction(onAction.passengerList)
+           is SharedContract.SharedAction.updateReturnState -> updateReturnState(onAction.state)
+            is SharedContract.SharedAction.selectedDepartureTicket -> selectedDepartureTicketId(onAction.id)
+            is SharedContract.SharedAction.selectedReturnTicket -> selectedReturnTicketId(onAction.id)
         }
     }
 
@@ -80,6 +86,8 @@ class SharedModel  : ViewModel(){
                     toAirportText = "${airport.code} - ${airport.name}"
                 )
                 toAirport = airport
+
+
             }
 
             _airportUiState.value = _airportUiState.value.copy(
@@ -120,7 +128,8 @@ class SharedModel  : ViewModel(){
             }else{
                 _dateState.value = _dateState.value.copy(
                     returnDate = selectedDate,
-                    returnDateText = dateText
+                    returnDateText = dateText,
+
 
                 )
             }
@@ -136,4 +145,25 @@ class SharedModel  : ViewModel(){
             passengerText = text
         )
     }
+
+    private fun updateReturnState(state:Boolean) {
+        _dateState.value = _dateState.value.copy(
+            returnState = state
+        )
+    }
+
+    private fun selectedDepartureTicketId(id:Int) {
+        _ticketState.value = _ticketState.value.copy(
+            selectedDepartureTicketId =  id
+        )
+    }
+
+    private fun selectedReturnTicketId(id:Int) {
+        _ticketState.value = _ticketState.value.copy(
+            selectedReturnTicketId =  id
+        )
+    }
+
+
+
 }

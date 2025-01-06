@@ -1,5 +1,6 @@
 package com.example.volatus.ui.features.ticketlist.departureTicketList
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,9 +56,12 @@ import androidx.compose.ui.text.style.TextAlign.Companion as TextAlign1
 @Composable
 fun DepartureTicketListScreen(
     viewModel:DepartureTicketListViewModelInterface,
-    sharedModel: SharedModel
+    sharedModel: SharedModel,
+    navigationPassenger:() -> Unit,
+    navigationReturnTicketList:() -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+    val sharedState by sharedModel.dateState.collectAsState()
     Column(modifier = Modifier.
         fillMaxSize()
         .background(Color.Gray.copy(0.1f))) {
@@ -80,11 +84,13 @@ fun DepartureTicketListScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(20) { item ->
              TicketComponent {
-
+                 sharedModel.onAction(SharedContract.SharedAction.selectedDepartureTicket(item))
+                 if (sharedState.returnState)
+                     navigationReturnTicketList()
+                 else
+                     navigationPassenger()
              }
-
             }
-
         }
 
     }
@@ -94,5 +100,9 @@ fun DepartureTicketListScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DepartureTicketListScreenPreview() {
-    DepartureTicketListScreen(viewModel = DepartureTicketListViewModel(), sharedModel = SharedModel() )
+    DepartureTicketListScreen(
+        viewModel = DepartureTicketListViewModel(),
+        sharedModel = SharedModel(),
+        navigationPassenger = {},
+        navigationReturnTicketList = {} )
 }

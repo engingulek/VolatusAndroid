@@ -29,10 +29,6 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
     private val _tripState = MutableStateFlow(HomeContract.TripTypeState())
     override var tripState: StateFlow<HomeContract.TripTypeState> = _tripState
 
-    private val _dateState = MutableStateFlow(SharedContract.DateState())
-
-
-
     override fun onAction(uiAction: HomeContract.UiAction) {
         when(uiAction){
 
@@ -51,9 +47,7 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
         _uiState.value = _uiState.value.copy(
             returnVisible = true
         )
-        _dateState.value = _dateState.value.copy(
-            returnState = false
-        )
+
 
         _tripState.value = _tripState.value.copy(
 
@@ -75,9 +69,6 @@ class HomeViewModel : ViewModel(), HomeViewModelInterface{
 
         )
 
-        _dateState.value = _dateState.value.copy(
-            returnState = true
-        )
 
         _tripState.value = _tripState.value.copy(
 

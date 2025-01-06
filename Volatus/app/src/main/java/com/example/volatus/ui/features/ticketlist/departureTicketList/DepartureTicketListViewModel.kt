@@ -1,13 +1,10 @@
 package com.example.volatus.ui.features.ticketlist.departureTicketList
 
 import android.util.Log
-import androidx.lifecycle.SAVED_STATE_REGISTRY_OWNER_KEY
 import androidx.lifecycle.ViewModel
 
 import com.example.volatus.ui.theme.noSelectedDate
 import com.example.volatus.ui.theme.selectedDate
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate

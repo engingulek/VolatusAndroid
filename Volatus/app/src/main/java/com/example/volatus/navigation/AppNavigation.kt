@@ -17,9 +17,12 @@ import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
 import com.example.volatus.ui.features.passenger.PassengerScreen
 import com.example.volatus.ui.features.passenger.PassengerViewModelInterface
+import com.example.volatus.ui.features.passengerInfo.PassengerInfoScreen
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListScreen
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModelInterface
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListScreen
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -31,6 +34,7 @@ fun AppNavigation(
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModelInterface,
+    returnTicketListViewModel:ReturnTicketListViewModelInterface
 ) {
     NavHost(
         modifier = modifier,
@@ -106,8 +110,26 @@ fun AppNavigation(
         composable("departureTicketList") {
             DepartureTicketListScreen(
                 viewModel = departureTicketListViewModel,
-                sharedModel = sharedModel
+                sharedModel = sharedModel,
+                navigationPassenger = { navHostController.navigate("passengerInfoScreen") },
+                navigationReturnTicketList = {
+                    val departureDate = sharedModel.dateState.value.departureDate
+                    val returnDate = sharedModel.dateState.value.returnDate
+                    returnTicketListViewModel.createDatePrice(departureDate,returnDate)
+                    navHostController.navigate("returnTicketListScreen") }
                 )
+        }
+
+
+        composable("passengerInfoScreen"){
+            PassengerInfoScreen()
+        }
+
+        composable("returnTicketListScreen"){
+            ReturnTicketListScreen(
+                viewModel = returnTicketListViewModel,
+                sharedModel = sharedModel,
+                navigationPassenger = { navHostController.navigate("passengerInfoScreen") })
         }
 
 

@@ -100,12 +100,18 @@ fun HomeScreen(
                     TripTypeComponent(
                         type = tripState.oneWayTripeType,
                         title = tripState.oneWayTitle,
-                        onClick = oneWay)
+                        onClick = {
+                            oneWay()
+                            sharedModel.onAction(SharedContract.SharedAction.updateReturnState(false))
+                        })
 
                    TripTypeComponent(
                         type = tripState.roundedTripeType,
                        title = tripState.roundedTitle,
-                        onClick = roundedTrip)
+                        onClick = {
+                            roundedTrip()
+                            sharedModel.onAction(SharedContract.SharedAction.updateReturnState(true))
+                        })
                 }
 
                 LocationComponent(

@@ -30,10 +30,19 @@ object SharedContract {
     )
 
 
+    data class TicketState(
+        var selectedDepartureTicketId:Int? = null,
+        var selectedReturnTicketId:Int? = null
+    )
+
+
     sealed interface SharedAction{
         data class selectedAirport(var type:Boolean?,var airport: Airport) : SharedAction
         data object onTappedSwapIcon: SharedAction
          data class selectedDate(var type:Boolean?,var date: LocalDate) : SharedAction
        data class updatePassengerList(var passengerList: List<Passenger>): SharedAction
+        data class updateReturnState(var state:Boolean) : SharedAction
+        data class selectedDepartureTicket(var id:Int) : SharedAction
+        data class selectedReturnTicket(var id:Int) : SharedAction
     }
 }
