@@ -5,7 +5,6 @@ import java.time.LocalDate
 
 object PassengerInfoContract {
     data class State(
-        //val passengerList:List<Passenger> = emptyList(),
         val infoShowList:List<InfoShow> = emptyList(),
         val passengerInfoList:List<PassengerInfo> = emptyList(),
         val passengerInfoError: List<PassengerInfoError> = emptyList()

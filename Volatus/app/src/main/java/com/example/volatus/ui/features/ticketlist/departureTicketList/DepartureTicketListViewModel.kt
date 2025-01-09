@@ -29,21 +29,16 @@ class DepartureTicketListViewModel : ViewModel(), DepartureTicketListViewModelIn
     private  var oldSelectedIndex:Int? = null
 
 
-
-
     override fun createDatePrice(getDate:LocalDate) {
 
         dateAndPrices = mutableListOf()
         val today = LocalDate.now()
-        val dateFormatter = DateTimeFormatter.ofPattern("E d MMM")
         for (i in 0..30) {
             val futureDate = today.plusDays(i.toLong())
-            val date = futureDate.format(dateFormatter)
             val dateAndPrice = DayAndPrice(
                 date= futureDate,
                 price = 1500,
                 selectedStateColor = if (futureDate == getDate) selectedDate.value else  noSelectedDate.value )
-            Log.e("dates","${dateAndPrice}")
 
             if (futureDate == getDate) {
                 oldSelectedIndex = i
@@ -51,13 +46,9 @@ class DepartureTicketListViewModel : ViewModel(), DepartureTicketListViewModelIn
             dateAndPrices.add(dateAndPrice)
 
         }
-
         _state.value = _state.value.copy(
            dayAndPriceList = dateAndPrices
         )
-
-
-
     }
 
     override fun onAction(onAction: DepartureTicketContract.UiAction) {
@@ -85,8 +76,5 @@ class DepartureTicketListViewModel : ViewModel(), DepartureTicketListViewModelIn
             oldSelectedIndex = index
             _state.value = updatedState
         }
-
     }
-
-
 }
