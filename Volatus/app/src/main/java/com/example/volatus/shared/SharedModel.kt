@@ -121,8 +121,8 @@ class SharedModel  : ViewModel(){
     }
 
     private fun selectedDate(type: Boolean?, selectedDate: LocalDate) {
-        val formatter = DateTimeFormatter.ofPattern("MMMM dd,yyyy")
-        val dateText = formatter.format(selectedDate)
+
+        val dateText = selectedDate.formatter(FormaterType.TypeThree)
         type?.let {
             if (it) {
                 _dateState.value = _dateState.value.copy(

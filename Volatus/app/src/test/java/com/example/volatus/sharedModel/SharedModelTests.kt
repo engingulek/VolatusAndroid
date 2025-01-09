@@ -1,7 +1,9 @@
 package com.example.volatus.sharedModel
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
+import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.utils.FormaterType
 import com.example.volatus.utils.formatter
 import junit.framework.TestCase.assertEquals
@@ -76,5 +78,63 @@ class SharedModelTests {
         )
 
         assertFalse("airportState is not correct",airportState.airportState)
+    }
+
+    @Test fun `When selected from and to airport, return  fromAirportTextString and toAirportText on AirportUiState `(){
+
+
+        model.onAction(SharedContract.SharedAction.selectedAirport(
+            true,
+            Airport( 1,
+                "Los Angeles International Airport",
+                "LAX",  "Los Angeles",
+                "United States"),))
+
+
+        model.onAction(SharedContract.SharedAction.selectedAirport(
+            false,
+            Airport(2,
+                "London Heathrow Airport",
+                "LHR",
+                "London", "United Kingdom"),))
+
+
+        val expectedFromAirportTextString = "LAX - Los Angeles International Airport"
+
+        val expectedToAirportText = "LHR - London Heathrow Airport"
+        val airportState = model.airportUiState.value
+
+        assertEquals(
+            "fromAirportTextString is not correct",
+            expectedFromAirportTextString,
+            airportState.fromAirportTextString
+            )
+
+        assertEquals(
+            "toAirportText is not correct",
+            expectedToAirportText,
+            airportState.toAirportText
+        )
+    }
+
+    @Test fun `When selected same airport  return airportState `(){
+        model.onAction(SharedContract.SharedAction.selectedAirport(
+            true,
+            Airport( 1,
+                "Los Angeles International Airport",
+                "LAX",  "Los Angeles",
+                "United States"),))
+
+        model.onAction(SharedContract.SharedAction.selectedAirport(
+            false,
+            Airport( 1,
+                "Los Angeles International Airport",
+                "LAX",  "Los Angeles",
+                "United States"),))
+        val airportState = model.airportUiState.value
+
+        assertFalse(
+            "airportState is not correct",
+            airportState.airportState)
     }
 }

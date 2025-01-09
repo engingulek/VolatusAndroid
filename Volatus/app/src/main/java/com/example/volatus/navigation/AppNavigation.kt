@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.AirportListScreen
+import com.example.volatus.ui.features.airtportList.AirportListViewModelInterface
 import com.example.volatus.ui.features.date.DateScreen
 import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.features.home.HomeViewModelInterface
@@ -32,6 +33,7 @@ fun AppNavigation(
     navHostController: NavHostController,
     sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
+    airportListViewModel:AirportListViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModelInterface,
@@ -80,7 +82,7 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
-
+                viewModel = airportListViewModel,
                selectAirport = {sharedModel.onAction(SharedContract.SharedAction.selectedAirport(type=type,it))},
                 onBack = {navHostController.popBackStack()}
             )

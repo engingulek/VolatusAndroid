@@ -16,20 +16,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.airtportList.Airport
 
 @Composable
 fun AirportList(
+    title:Int,
     list:List<Airport>,
+    messageState:Pair<Boolean,Int>,
     selectAirport: (Airport)->Unit,
     onBack:()->Unit) {
 
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text("All Airports",
+        Text(
+            stringResource(title),
             style = TextStyle(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 20.sp,
@@ -42,35 +47,49 @@ fun AirportList(
                 .height(1.dp)
                 .background(Color.Red)
         )
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            items(list){airport ->
-                Column(
-                    Modifier.clickable {
-                        selectAirport(airport)
-                        onBack()
-                    },
-                    verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text("${airport.city},${airport.country}", style = TextStyle(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    )
-                    Text("${airport.code}-${airport.name}", style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.Gray
-                    )
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(0.5.dp)
-                            .background(Color.Gray)
-                            .padding()
-                    )
-                }
 
+        if (messageState.first) {
+                Text(
+                    stringResource(messageState.second),
+                    modifier = Modifier.fillMaxSize(),
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(fontSize = 20.sp, color = Color.Red, fontWeight = FontWeight.SemiBold)
+
+                )
+
+
+        }else{
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                items(list){airport ->
+                    Column(
+                        Modifier.clickable {
+                            selectAirport(airport)
+                            onBack()
+                        },
+                        verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                        Text("${airport.city},${airport.country}", style = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        )
+                        Text("${airport.code}-${airport.name}", style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Gray
+                        )
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(0.5.dp)
+                                .background(Color.Gray)
+                                .padding()
+                        )
+                    }
+
+                }
             }
         }
+
     }
 }
