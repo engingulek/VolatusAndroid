@@ -41,7 +41,6 @@ class PassengerViewModel : ViewModel(),PassengerViewModelInterface {
         _uiState.value = _uiState.value.copy(
             passengerList = updatedList
         )
-
     }
 
     private fun addPassengerAction(index: Int) {

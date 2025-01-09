@@ -47,10 +47,8 @@ fun PassengerScreen(
         verticalArrangement = Arrangement.SpaceBetween
         ) {
         LazyColumn(
-
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-
             items(uiState.passengerList.size) { index ->
                 Column {
                     PassengerComponent(
@@ -61,7 +59,6 @@ fun PassengerScreen(
                     )
                     HorizontalDivider(color = Color.Red.copy(alpha = 0.5f))
                 }
-
             }
         }
 
@@ -69,7 +66,6 @@ fun PassengerScreen(
             onClick = {
                 updatePassenger(uiState.passengerList)
                 onBack()
-
                       },
             modifier = Modifier.fillMaxWidth()
                 .height(50.dp).
@@ -86,10 +82,6 @@ fun PassengerScreen(
             )
         }
     }
-
-
-
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
