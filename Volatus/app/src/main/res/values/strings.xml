@@ -39,5 +39,8 @@
     <string name="dateError">Check date of birth</string>
     <string name="allAirports">All Airports</string>
     <string name="listAirportEmpty">Airport Not Found</string>
+    <string name="departureTicketInfo">Departure Ticket Info</string>
+    <string name="retrunTicketInfo">Return Ticket Info</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
