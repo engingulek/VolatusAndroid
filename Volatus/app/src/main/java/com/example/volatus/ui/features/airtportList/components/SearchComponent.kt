@@ -26,11 +26,17 @@ import com.example.volatus.R
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SearchComponent(placeholder:Int) {
-    var query by remember { mutableStateOf("") }
+fun SearchComponent(
+    placeholder:Int,
+    searchAction:(String) -> Unit
+) {
+     var query by remember { mutableStateOf("") }
     TextField(
         value = query,
-        onValueChange = { query = it },
+        onValueChange = {
+            query = it
+            searchAction(it)
+                        },
         placeholder = {
             Text(
                 stringResource(placeholder),
@@ -42,7 +48,6 @@ fun SearchComponent(placeholder:Int) {
         },
         modifier = Modifier
             .fillMaxWidth()
-
             .border(
                 BorderStroke(2.dp, Color.Red),
                 RoundedCornerShape(10.dp)
@@ -62,6 +67,6 @@ fun SearchComponent(placeholder:Int) {
 @Preview(showBackground = true)
 @Composable
 fun SearchVComponentPreview() {
-    SearchComponent(R.string.searchPlaceholder)
+    SearchComponent(R.string.searchPlaceholder, searchAction = {})
 
 }

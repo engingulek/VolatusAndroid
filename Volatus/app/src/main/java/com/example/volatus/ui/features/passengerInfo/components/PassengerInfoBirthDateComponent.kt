@@ -1,4 +1,4 @@
-package com.example.volatus.ui.features.passengerInfo
+package com.example.volatus.ui.features.passengerInfo.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,8 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.theme.datePicker
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
 
 @Composable
 fun PassengerInfoBirthDateComponent(

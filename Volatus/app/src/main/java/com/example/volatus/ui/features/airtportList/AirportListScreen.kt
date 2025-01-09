@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,32 +18,33 @@ import com.example.volatus.ui.features.airtportList.components.SearchComponent
 
 @Composable
 fun AirportListScreen(
-    viewModel:AirportListViewModelInterface = AirportListViewModel(),
-   // sharedModel: SharedModel,
-   selectAirport:(Airport) -> Unit,
+    viewModel:AirportListViewModelInterface,
+    selectAirport:(Airport) -> Unit,
     onBack: () -> Unit
 
 ) {
     val state by viewModel.uiState.collectAsState()
-
 
     Column(modifier = Modifier.fillMaxSize()
         .padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        SearchComponent(placeholder = state.searchPlaceholder)
-        AirportList(list = state.airportList,
+        SearchComponent(placeholder = state.searchPlaceholder){ text ->
+            viewModel.onAction(AirportContract.UiAction.onSearchAction(text))
+        }
+
+        AirportList(
+            title = state.airportListTitle,
+            list = state.airportList,
+            messageState = state.listMessage,
             selectAirport = selectAirport,
             onBack = onBack)
-
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AirportListScreenPreview() {
-    AirportListScreen(onBack = {},selectAirport = {})
-
-
+    AirportListScreen(viewModel = AirportListViewModel(),onBack = {},selectAirport = {})
 }

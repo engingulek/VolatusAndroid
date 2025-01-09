@@ -1,25 +1,17 @@
 package com.example.volatus.ui.features.passengerInfo
 
-import androidx.annotation.ColorRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,33 +22,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import android.widget.DatePicker
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.ui.Alignment
 import com.example.volatus.R
 import com.example.volatus.shared.SharedModel
+import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoBirthDateComponent
+import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTextFieldComponent
+import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTypeComponent
 import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
-import com.example.volatus.ui.theme.datePicker
-import com.example.volatus.ui.theme.downArrow
-import com.example.volatus.ui.theme.upArrow
 import com.example.volatus.utils.FormaterType
 import com.example.volatus.utils.formatter
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 
 
@@ -73,9 +53,9 @@ fun PassengerInfoScreen(
     Column(modifier = Modifier.
     fillMaxSize()
         .background(Color.Gray.copy(0.1f))) {
-        TicketInfoComponent("Departure Ticket Info")
+        TicketInfoComponent(stringResource(R.string.departureTicketInfo))
         if (dateState.returnState) {
-            TicketInfoComponent("Return Ticket List")
+            TicketInfoComponent(stringResource(R.string.retrunTicketInfo))
         }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(state.infoShowList.size){ index ->
@@ -92,6 +72,7 @@ fun PassengerInfoScreen(
 
                    ) {
 
+                       //TR ID TextField
                        PassengerInfoTextFieldComponent(
                            value = state.passengerInfoList[index].trIdNumber,
                            label = stringResource(R.string.enterId),
@@ -102,7 +83,7 @@ fun PassengerInfoScreen(
                                PassengerInfoContract.OnChangeTextFieldAction.onChangeTRId(index,newText)
                            )
                        }
-
+                       //Name TextField
                        PassengerInfoTextFieldComponent(
                            value = state.passengerInfoList[index].name,
                            label = stringResource(R.string.enterName),
@@ -113,7 +94,7 @@ fun PassengerInfoScreen(
                                PassengerInfoContract.OnChangeTextFieldAction.onChangeName(index,newText)
                            )
                        }
-
+                       //Surname TextField
                        PassengerInfoTextFieldComponent(
                            value = state.passengerInfoList[index].surname,
                            label = stringResource(R.string.enterSurname),
@@ -125,6 +106,7 @@ fun PassengerInfoScreen(
                            )
                        }
 
+                       //BirthDate DatePicker
                        PassengerInfoBirthDateComponent(
                            date = state.passengerInfoList[index].birthDate.formatter(FormaterType.TypeFive),
                            errorState = state.passengerInfoError[index].birthDateError
@@ -144,11 +126,11 @@ fun PassengerInfoScreen(
                                        viewModel.onChangeTextFieldAction(
                                            PassengerInfoContract.OnChangeTextFieldAction.onSelectedBirthDate(index,
                                                selectedDate))
-                                   }) { Text("Confirm")}
+                                   }) { Text(stringResource(R.string.confirmButton))}
                                },
                                dismissButton = {
                                    TextButton(onClick = { isOpen = false })
-                                   {Text("Cancel") }
+                                   {Text(stringResource(R.string.cancel)) }
                                }
                            ) {
                                DatePicker(
@@ -162,10 +144,7 @@ fun PassengerInfoScreen(
             }
         }
 
-
     }
-
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

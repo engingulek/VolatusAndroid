@@ -31,6 +31,7 @@ class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
         infoShowList = mutableListOf()
         passengerInfoList = mutableListOf()
         val currentDate = LocalDate.now()
+
         for( passenger in list ){
             for (index in 0..<passenger.count ){
                 if (passenger.count != 0){
@@ -55,7 +56,6 @@ class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
                     )
                     passengerInfoList.add(passengerInfo)
                     passengerInfoErrorList.add(PassengerInfoError())
-
                 }
             }
         }
@@ -63,7 +63,6 @@ class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
             infoShowList = infoShowList,
             passengerInfoList = passengerInfoList,
             passengerInfoError = passengerInfoErrorList
-
         )
     }
 
@@ -176,7 +175,6 @@ class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun onSelectedBirtDateAction(index: Int, date:LocalDate){
         val dateRange = passengerInfoList[index].dateRange
         val errorState =
@@ -203,7 +201,5 @@ class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
                 }
             }
         )
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.volatus.ui.features.passengerInfo
+package com.example.volatus.ui.features.passengerInfo.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,12 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.volatus.ui.features.passengerInfo.InfoShow
 import com.example.volatus.ui.theme.downArrow
 import com.example.volatus.ui.theme.upArrow
 
 @Composable
 fun PassengerInfoTypeComponent(
-    item:InfoShow,
+    item: InfoShow,
     onTap:() -> Unit
 ) {
     Row(modifier = Modifier

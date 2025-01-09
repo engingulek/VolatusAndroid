@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.navigation.AppNavigation
+import com.example.volatus.ui.features.airtportList.AirportListViewModel
 import com.example.volatus.ui.features.date.DateViewModel
 import com.example.volatus.ui.theme.VolatusTheme
 import com.example.volatus.ui.features.home.HomeViewModel
@@ -39,7 +40,8 @@ class MainActivity : ComponentActivity() {
                         passengerViewModel = PassengerViewModel(),
                         departureTicketListViewModel = DepartureTicketListViewModel(),
                         returnTicketListViewModel = ReturnTicketListViewModel(),
-                        passengerInfoViewModel = PassengerInfoViewModel()
+                        passengerInfoViewModel = PassengerInfoViewModel(),
+                        airportListViewModel = AirportListViewModel()
                     )
 
                 }

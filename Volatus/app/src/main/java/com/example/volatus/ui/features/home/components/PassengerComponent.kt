@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
@@ -21,13 +22,11 @@ import com.example.volatus.shared.SharedContract
 
 @Composable
 fun PassengerComponent(
-    title:Int,
     state: SharedContract.PassengerState,
     navigation:() -> Unit
 ) {
     Column( modifier = Modifier
         .fillMaxWidth()
-
         .border(
             width = 1.dp,
             color = Color.LightGray,
@@ -46,9 +45,12 @@ fun PassengerComponent(
     }
 }
 
-/*@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun PassengerComponentPreview() {
-    PassengerComponent(state = , navigation = {})
+    PassengerComponent(state = SharedContract.PassengerState(
+        passengerList = emptyList(),
+        passengerText = "1 Adult"
+    ), navigation = {})
 
-}*/
+}

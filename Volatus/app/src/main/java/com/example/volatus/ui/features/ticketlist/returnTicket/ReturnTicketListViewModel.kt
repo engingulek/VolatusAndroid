@@ -7,14 +7,12 @@ import com.example.volatus.ui.theme.selectedDate
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 interface ReturnTicketListViewModelInterface {
     val  state : StateFlow<ReturnTicketListContract.State>
     fun createDatePrice(departureDate:LocalDate,returnDate:LocalDate)
     fun onAction(onAction:ReturnTicketListContract.UiAction)
 }
-
 
 class ReturnTicketListViewModel : ViewModel(),ReturnTicketListViewModelInterface {
     private val _state = MutableStateFlow(ReturnTicketListContract.State())
@@ -26,14 +24,14 @@ class ReturnTicketListViewModel : ViewModel(),ReturnTicketListViewModelInterface
 
     override fun createDatePrice(departureDate: LocalDate, returnDate: LocalDate) {
         dateAndPrices = mutableListOf()
-        val startDate = departureDate
-        val dateFormatter = DateTimeFormatter.ofPattern("E d MMM")
-        for (i in 0..30){
-            val futureDate = startDate.plusDays(i.toLong())
+
+        for (i in 0..30) {
+            val futureDate = departureDate.plusDays(i.toLong())
             val dateAndPrice = DayAndPrice(
                 date = futureDate,
                 price = 1500,
-                selectedStateColor = if (futureDate == returnDate) selectedDate.value else noSelectedDate.value
+                selectedStateColor = if (futureDate == returnDate) selectedDate.value
+                else noSelectedDate.value
             )
 
             if (futureDate == returnDate) {
@@ -52,7 +50,6 @@ class ReturnTicketListViewModel : ViewModel(),ReturnTicketListViewModelInterface
             is ReturnTicketListContract.UiAction.onTappedDate -> onTappedDayAction(onAction.index)
         }
     }
-
 
     private  fun onTappedDayAction(index:Int){
         oldSelectedIndex?.let {

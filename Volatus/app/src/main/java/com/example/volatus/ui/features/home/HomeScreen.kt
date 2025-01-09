@@ -51,8 +51,6 @@ fun HomeScreen(
     val dateState by sharedModel.dateState.collectAsState()
     val passengerState by sharedModel.passengerState.collectAsState()
 
-
-
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = painterResource(state.backImage.image),
@@ -61,13 +59,11 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
-                    .clip(
-                        RoundedCornerShape(
+                    .clip(RoundedCornerShape(
                             bottomStart = 10.dp, bottomEnd = 10.dp
-                        )
-                    )
-
+                        ))
             )
+
             Column(
                 modifier = Modifier
                     .padding(horizontal = 15.dp)
@@ -96,7 +92,7 @@ fun HomeScreen(
                     val roundedTrip :  () -> Unit = {
                     viewModel.onAction(HomeContract.UiAction.OnClickRoundedTrip)
                 }
-
+                    //Trips Start
                     TripTypeComponent(
                         type = tripState.oneWayTripeType,
                         title = tripState.oneWayTitle,
@@ -111,9 +107,10 @@ fun HomeScreen(
                         onClick = {
                             roundedTrip()
                             sharedModel.onAction(SharedContract.SharedAction.updateReturnState(true))
-                        })
+                        })//Trips Finish
                 }
 
+                //LocationComponent Start
                 LocationComponent(
                     title = state.fromTitle,
                     location = airportState.fromAirportTextString,
@@ -133,7 +130,7 @@ fun HomeScreen(
                     title = state.toTitle,
                     location = airportState.toAirportText,
                     navigation = {navigationToAirportList(false)}
-                )
+                )  //LocationComponent Finish
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -146,6 +143,7 @@ fun HomeScreen(
                         state.departureTitle,
                         dateText = dateState.departureDateText,
                         navigation = {navigationToDateScreen(true)})
+
                     if (!state.returnVisible)
                         TimeComponent(
                             state.returnTitle,
@@ -155,7 +153,6 @@ fun HomeScreen(
                 }
 
                 PassengerComponent(
-                    title = state.passengerTitle,
                     state = passengerState,
                     navigation = {navigationToPassenger()}
                 )
@@ -167,7 +164,6 @@ fun HomeScreen(
                 )
             }
         }
-
 }
 
 

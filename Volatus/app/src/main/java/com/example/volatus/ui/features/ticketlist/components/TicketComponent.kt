@@ -39,9 +39,6 @@ fun TicketComponent(onTap:() -> Unit) {
             .clip(RoundedCornerShape(10.dp))
             .background(Color.White)
             .clickable  (onClick = onTap )
-
-
-
     ) {
         // Head Start
         Row(

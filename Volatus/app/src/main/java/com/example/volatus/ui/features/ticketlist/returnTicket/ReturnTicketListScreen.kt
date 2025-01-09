@@ -30,16 +30,11 @@ fun ReturnTicketListScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Gray.copy(0.1f)),
-
-
     ) {
         TicketInfoComponent("Departure Ticket Info")
-
-
         LazyRow( modifier = Modifier
             .fillMaxWidth()
             .background(Color.White).padding(10.dp),
@@ -50,11 +45,8 @@ fun ReturnTicketListScreen(
                     viewModel.onAction(ReturnTicketListContract.UiAction.onTappedDate(index))
                     sharedModel.onAction(SharedContract.SharedAction.selectedDate(false, date = dayAndPrice.date))
                 }
-
-
             }
         }
-
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(20) { item ->
@@ -67,5 +59,3 @@ fun ReturnTicketListScreen(
 
         }
     }
-
-
