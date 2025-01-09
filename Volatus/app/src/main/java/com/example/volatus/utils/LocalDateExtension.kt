@@ -1,10 +1,12 @@
 package com.example.volatus.utils
 
+import android.icu.util.Calendar
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 enum class FormaterType(val formatString: String) {
 
+    TypeTwo("MMMM/yyyy"),
     TypeThree("MMMM dd,yyyy"),
     TypeFour("E d MMM"),
     TypeFive("dd/MM/yyyy")
@@ -18,3 +20,5 @@ fun LocalDate.formatter(type: FormaterType): String {
 fun LocalDate.subtractYears(years: Int): LocalDate {
     return this.minusYears(years.toLong())
 }
+
+

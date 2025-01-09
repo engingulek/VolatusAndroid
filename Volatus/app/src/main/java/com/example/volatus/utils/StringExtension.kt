@@ -1,5 +1,8 @@
 package com.example.volatus.utils
 
+import android.icu.util.Calendar
+import java.text.SimpleDateFormat
+
 fun String.isValidTCNumber(): Boolean {
 
     if (this.length != 11) return false
@@ -33,4 +36,14 @@ fun String.isValidTCNumber(): Boolean {
     if (this[10].digitToInt() != eleventhDigit) return false
 
     return true
+}
+
+
+fun String.convertCalendar(type: FormaterType) :Calendar {
+    val formatter = SimpleDateFormat(type.formatString)
+    val date = formatter.parse(this)
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    return calendar
+
 }

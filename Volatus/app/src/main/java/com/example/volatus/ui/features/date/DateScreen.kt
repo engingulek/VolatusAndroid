@@ -25,7 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.example.volatus.shared.SharedModel
+import com.example.volatus.ui.features.date.components.DayComponent
+import com.example.volatus.ui.features.date.components.WeekComponent
 import com.example.volatus.utils.getDateCardColor
 
 import com.example.volatus.utils.getDateColor
@@ -35,109 +36,61 @@ import java.time.LocalDate
 
 @Composable
 fun DateScreen(
-    viewModel: DateViewModel,
-    sharedModel: SharedModel,
-    selectDateAction:(LocalDate) -> Unit,
+    viewModel: DateViewModelInterface,
+    selectDateAction: (LocalDate) -> Unit,
     onBack: () -> Unit
+) {
+    val state by viewModel.uiState.collectAsState()
 
-    ) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(10.dp)) {
+        LazyColumn {
+            items(state.mountCalender.keys.size) { mountIndex ->
+                val monthAndYear = state.mountCalender[mountIndex]
+                Column(modifier = Modifier.padding(vertical = 10.dp)) {
+                    Text(
+                        monthAndYear ?: "", style = TextStyle(
+                            fontSize = 20.sp, fontWeight =
+                            FontWeight.SemiBold
+                        )
+                    )
 
-    val mount by viewModel.mountCalender.collectAsState()
-    val dayCalendar by viewModel.daysCalender.collectAsState()
-    val navTitle by viewModel.navTitle.collectAsState()
-     Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
-         Text(modifier = Modifier.fillMaxWidth(),
-             text = navTitle, style = TextStyle(
-                 fontSize = 20.sp,
-                 fontWeight = FontWeight.SemiBold,
-                 textAlign = TextAlign.Center
-             )
-         )
-         LazyColumn {
-             items(mount.keys.size) { mountIndex ->
-                 val monthAndYear = mount[mountIndex]
+                    //Week List
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(7),
+                        modifier = Modifier.height(50.dp)
 
-                 Column(modifier = Modifier.padding(vertical = 10.dp)) {
-                     Text(monthAndYear ?: "", style = TextStyle(
-                         fontSize = 20.sp, fontWeight =
-                         FontWeight.SemiBold)
-                     )
+                    ) {
+                        items(state.weeks) { week ->
+                        WeekComponent(week)
+                        }
+                    }
 
-                     LazyVerticalGrid(
-                         columns = GridCells.Fixed(7),
-                         modifier = Modifier.height(50.dp)
+                    //Day List
+                    val days = state.daysCalender[mountIndex] ?: emptyList()
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(7),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(230.dp)
 
-                     ) {
-                         items(viewModel.weeks) { week ->
-                             Card(modifier = Modifier.padding(4.dp),
-                                 colors = CardDefaults.cardColors(
-                                 containerColor = Color.Transparent
-                             )) {
-                                 Text(
-                                     text = week,
-                                     modifier = Modifier.padding(5.dp),
-                                       style = TextStyle(
-                                         color = Color.Gray,
-
-                                         textAlign = TextAlign.Center,
-                                           fontSize = 18.sp,
-                                           fontWeight = FontWeight.SemiBold
-
-
-                                       )
-                                 )
-                             }
-                         }
-
-                     }
-                     val days = dayCalendar[mountIndex] ?: emptyList()
-                     LazyVerticalGrid(
-                         columns = GridCells.Fixed(7),
-                         modifier = Modifier.fillMaxWidth()
-                             .height(230.dp)
-
-
-                     ) {
-                         items(days.size){ dayIndex ->
-                             val day = days[dayIndex]
-                             if (day.second != null){
-                                 Card(
-                                     modifier = Modifier.padding(4.dp)
-                                         .clickable(
-                                             enabled = day.first != DateValueType.DISABLE
-                                         ) {
-                                             viewModel.selectedData(mountIndex,dayIndex)
-                                            val selectedDate = viewModel.getSelectedDate(mountIndex,day.second)
-                                             selectDateAction(selectedDate)
-                                             onBack()
-
-                                           },
-
-                                     colors = CardDefaults.cardColors(
-                                         containerColor = day.first.getDateCardColor()
-                                     )
-                                 ) {
-
-                                     Text(
-                                         text = "${day.second}",
-                                         modifier = Modifier.padding(8.dp).fillMaxSize(),
-                                         style = TextStyle(
-                                             color = day.first.getDateColor(),
-                                             fontSize = 18.sp,
-                                             textAlign = TextAlign.Center)
-
-                                     )
-                                 }
-                             }
-
-
-                         }
-                     }
-                 }
-
-             }
-         }
-
-     }
-
+                    ) {
+                        items(days.size) { dayIndex ->
+                            val day = days[dayIndex]
+                            if (day.second != null) {
+                                DayComponent(day) {
+                                    viewModel.selectedData(mountIndex, dayIndex)
+                                    val selectedDate =
+                                        viewModel.getSelectedDate(mountIndex, day.second)
+                                    selectDateAction(selectedDate)
+                                    onBack()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

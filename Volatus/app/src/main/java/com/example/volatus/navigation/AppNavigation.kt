@@ -96,7 +96,7 @@ fun AppNavigation(
 
             DateScreen(
                 viewModel = dateViewModel,
-                sharedModel = sharedModel,
+
                selectDateAction = {sharedModel.onAction(SharedContract.SharedAction.selectedDate(type = dateType,it))},
                 onBack = {navHostController.popBackStack()}
 
