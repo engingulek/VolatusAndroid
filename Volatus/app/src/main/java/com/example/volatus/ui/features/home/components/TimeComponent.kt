@@ -32,13 +32,13 @@ fun TimeComponent(
                 shape = RoundedCornerShape(16.dp)
             )
             .background(color = Color.White)
-            .padding(16.dp)
+            .padding(10.dp)
             .clickable(onClick = navigation)
         ) {
             Text(stringResource(title))
             Text(dateText,
                 style = TextStyle(
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold)
             )
 

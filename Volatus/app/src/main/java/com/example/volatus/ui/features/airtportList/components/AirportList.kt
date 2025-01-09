@@ -25,7 +25,8 @@ import com.example.volatus.ui.features.airtportList.Airport
 @Composable
 fun AirportList(
     list:List<Airport>,
-    selectAirport: (Airport)->Unit,onBack:()->Unit) {
+    selectAirport: (Airport)->Unit,
+    onBack:()->Unit) {
 
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("All Airports",
