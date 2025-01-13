@@ -1,11 +1,13 @@
 package com.example.volatus.ui.features.airtportList
 
+import com.google.gson.annotations.SerializedName
+
 data class Airport(
-    var id:Int,
-    var name:String,
-    var code:String,
-    var city:String,
-    var country:String
+   @SerializedName("id") val id: Long,
+   @SerializedName("country")   val country: String,
+   @SerializedName("city")  val city: String,
+   @SerializedName("code")   val code: String,
+   @SerializedName("airname")  val airname: String
 
 ) {
 }

@@ -79,4 +79,18 @@ dependencies {
     //hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //test
+    implementation("androidx.arch.core:core-testing:2.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation("org.mockito:mockito-core:3.7.7")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+
+
 }

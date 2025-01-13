@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.navigation.AppNavigation
@@ -19,8 +20,9 @@ import com.example.volatus.ui.features.passenger.PassengerViewModel
 import com.example.volatus.ui.features.passengerInfo.PassengerInfoViewModel
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         departureTicketListViewModel = DepartureTicketListViewModel(),
                         returnTicketListViewModel = ReturnTicketListViewModel(),
                         passengerInfoViewModel = PassengerInfoViewModel(),
-                        airportListViewModel = AirportListViewModel()
+                       // airportListViewModel = hiltViewModel()
                     )
 
                 }

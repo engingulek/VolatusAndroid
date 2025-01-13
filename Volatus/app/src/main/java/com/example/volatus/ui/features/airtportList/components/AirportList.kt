@@ -72,7 +72,7 @@ fun AirportList(
                             fontWeight = FontWeight.SemiBold
                         )
                         )
-                        Text("${airport.code}-${airport.name}", style = TextStyle(
+                        Text("${airport.code}-${airport.airname}", style = TextStyle(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Gray
