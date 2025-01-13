@@ -40,8 +40,8 @@ class MainActivity : ComponentActivity() {
                         homeViewModel = HomeViewModel(),
                         dateViewModel = DateViewModel(),
                         passengerViewModel = PassengerViewModel(),
-                        departureTicketListViewModel = DepartureTicketListViewModel(),
-                        returnTicketListViewModel = ReturnTicketListViewModel(),
+                        departureTicketListViewModel = hiltViewModel(),
+                        returnTicketListViewModel = hiltViewModel(),
                         passengerInfoViewModel = PassengerInfoViewModel(),
                        // airportListViewModel = hiltViewModel()
                     )

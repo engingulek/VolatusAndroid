@@ -44,5 +44,6 @@
     <string name="cancel">Cancel</string>
     <string name="errorMessage">Something Went Wrong</string>
     <string name="emptyAirport">No Airport Available</string>
+    <string name="emptyTicket">No Tickets Avaible</string>
 
 </resources>

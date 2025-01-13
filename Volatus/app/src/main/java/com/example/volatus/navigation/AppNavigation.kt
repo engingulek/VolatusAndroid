@@ -24,6 +24,7 @@ import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureT
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModelInterface
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListScreen
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -36,8 +37,8 @@ fun AppNavigation(
   //  airportListViewModel:AirportListViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
-    departureTicketListViewModel: DepartureTicketListViewModelInterface,
-    returnTicketListViewModel:ReturnTicketListViewModelInterface,
+    departureTicketListViewModel: DepartureTicketListViewModel,
+    returnTicketListViewModel:ReturnTicketListViewModel,
     passengerInfoViewModel:PassengerInfoViewModelInterface
 ) {
     NavHost(
@@ -70,7 +71,9 @@ fun AppNavigation(
 
                 navigationToDepartureTicketList = {
                     val departureDate = sharedModel.dateState.value.departureDate
-                    departureTicketListViewModel.createDatePrice(departureDate)
+                    val fromAirport = sharedModel.airportUiState.value.fromAirport
+                    val toAirport = sharedModel.airportUiState.value.toAirport
+                    departureTicketListViewModel.getInfo(fromAirport,toAirport,departureDate)
                     navHostController.navigate(route ="departureTicketList" )
                 }
 
@@ -121,7 +124,10 @@ fun AppNavigation(
                 navigationReturnTicketList = {
                     val departureDate = sharedModel.dateState.value.departureDate
                     val returnDate = sharedModel.dateState.value.returnDate
-                    returnTicketListViewModel.createDatePrice(departureDate,returnDate)
+                    val fromAirport = sharedModel.airportUiState.value.toAirport
+                    val toAirport = sharedModel.airportUiState.value.fromAirport
+                    returnTicketListViewModel.getInfo(fromAirport,toAirport,departureDate,returnDate)
+
                     navHostController.navigate("returnTicketListScreen") }
                 )
         }

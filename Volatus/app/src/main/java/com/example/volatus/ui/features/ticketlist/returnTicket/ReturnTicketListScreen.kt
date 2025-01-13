@@ -15,7 +15,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.ticketlist.components.DayAndPriceComponent
@@ -24,7 +30,7 @@ import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
 
 @Composable
 fun ReturnTicketListScreen(
-    viewModel:ReturnTicketListViewModelInterface,
+    viewModel:ReturnTicketListViewModel = hiltViewModel(),
     sharedModel:SharedModel,
     navigationPassenger:() -> Unit
 ) {
@@ -47,15 +53,26 @@ fun ReturnTicketListScreen(
                 }
             }
         }
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            items(20) { item ->
-                TicketComponent {
-                  sharedModel.onAction(SharedContract.SharedAction.selectedReturnTicket(item))
-                    navigationPassenger()
+        if(state.listMessage.first){
+            Text(
+                stringResource(state.listMessage.second),
+                modifier = Modifier.fillMaxSize(),
+                textAlign = TextAlign.Center,
+                style = TextStyle(fontSize = 20.sp, color = Color.Red, fontWeight = FontWeight.SemiBold))
+
+        }else{
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                items(state.ticketList.count()) { index ->
+                    val ticket = state.ticketList[index]
+                    TicketComponent(ticket) {
+                      sharedModel.onAction(SharedContract.SharedAction.selectedReturnTicket(index))
+                        navigationPassenger()
+                    }
                 }
             }
         }
+
 
         }
     }

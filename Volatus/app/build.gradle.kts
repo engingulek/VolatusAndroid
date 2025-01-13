@@ -91,6 +91,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:3.7.7")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
+    //coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 
 
 }
