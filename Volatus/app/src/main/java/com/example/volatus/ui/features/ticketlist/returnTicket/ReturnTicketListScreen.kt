@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.ticketlist.components.DayAndPriceComponent
@@ -35,12 +36,14 @@ fun ReturnTicketListScreen(
     navigationPassenger:() -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+    val ticketState by sharedModel.ticketState.collectAsState()
 
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Gray.copy(0.1f)),
     ) {
-        TicketInfoComponent("Departure Ticket Info")
+        TicketInfoComponent(stringResource(R.string.departureTicketInfo),
+            ticket = ticketState.selectedReturnTicket)
         LazyRow( modifier = Modifier
             .fillMaxWidth()
             .background(Color.White).padding(10.dp),
@@ -63,10 +66,9 @@ fun ReturnTicketListScreen(
         }else{
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(state.ticketList.count()) { index ->
-                    val ticket = state.ticketList[index]
+                items(state.ticketList) { ticket ->
                     TicketComponent(ticket) {
-                      sharedModel.onAction(SharedContract.SharedAction.selectedReturnTicket(index))
+                      sharedModel.onAction(SharedContract.SharedAction.selectedReturnTicket(ticket))
                         navigationPassenger()
                     }
                 }

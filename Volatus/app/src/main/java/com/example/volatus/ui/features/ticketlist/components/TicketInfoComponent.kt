@@ -16,9 +16,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.volatus.ui.features.ticketlist.Ticket
 
 @Composable
-fun TicketInfoComponent(title:String) {
+fun TicketInfoComponent(
+    title:String,
+    ticket: Ticket?)
+{
     Column(
         Modifier.fillMaxWidth()
             .padding(vertical = 10.dp)
@@ -32,14 +36,13 @@ fun TicketInfoComponent(title:String) {
         Column( Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             Row(Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("From City 00:00", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
-                Text("To City 00:00", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
+                Text("${ticket?.departureAirport?.city}  ${ticket?.departureClock}", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
+                Text("${ticket?.arrivalAirport?.city} ${ticket?.landingClock}", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
             }
 
             Row(Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("01/01/2025", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
-                Text("TRY 800.00", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
+                Text("${ticket?.date}", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
             }
         }
 
@@ -49,5 +52,5 @@ fun TicketInfoComponent(title:String) {
 @Preview(showBackground = true)
 @Composable
 fun TicketInfoComponentPreview() {
-    TicketInfoComponent("Departure Ticket Info")
+    TicketInfoComponent("Departure Ticket Info", ticket = null)
 }
