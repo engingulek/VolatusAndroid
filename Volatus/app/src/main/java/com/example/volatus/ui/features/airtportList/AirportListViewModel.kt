@@ -2,9 +2,13 @@ package com.example.volatus.ui.features.airtportList
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.volatus.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 interface  AirportListViewModelInterface {
     var uiState : StateFlow<AirportContract.UiState>
@@ -13,24 +17,42 @@ interface  AirportListViewModelInterface {
 
 }
 
-class AirportListViewModel:ViewModel(),AirportListViewModelInterface {
+@HiltViewModel
+class AirportListViewModel @Inject constructor(private val service: AirportServiceInterface)
+
+    :ViewModel(),AirportListViewModelInterface {
     private val _uiState = MutableStateFlow(AirportContract.UiState())
     override var uiState: StateFlow<AirportContract.UiState> = _uiState
 
     private var tempList : List<Airport> = emptyList()
 
     init {
+        // fetch airport
+        fetchAirportList()
+    }
 
-        tempList =  listOf(
-            Airport( 1, "Los Angeles International Airport",  "LAX",  "Los Angeles",  "United States"),
-            Airport(2,  "London Heathrow Airport", "LHR",  "London", "United Kingdom"),
-            Airport( 3,  "Tokyo Haneda Airport",  "HND",  "Tokyo", "Japan"),
-            Airport( 4,  "Dubai International Airport",  "DXB",  "Dubai",  "United Arab Emirates"),
-            Airport( 5,  "Istanbul Airport", "IST", "Istanbul","Turkey")
-        )
-        _uiState.value = _uiState.value.copy(
-            airportList = tempList
-        )
+    private fun fetchAirportList() {
+        viewModelScope.launch {
+            service.fetchAllAirportList()
+            val data = service.getAllAirportList()
+            if (data.second) {
+                _uiState.value = _uiState.value.copy(
+                    airportList =  emptyList(),
+                    listMessage = Pair(true,R.string.errorMessage)
+                )
+
+                tempList = emptyList()
+
+            }else{
+                _uiState.value = _uiState.value.copy(
+                    airportList = data.first,
+                    listMessage = if (data.first.isEmpty() ) Pair(true,R.string.emptyAirport)
+                    else Pair(false,R.string.emptyDefault)
+                )
+                tempList = data.first
+
+            }
+        }
     }
 
 
@@ -40,7 +62,6 @@ class AirportListViewModel:ViewModel(),AirportListViewModelInterface {
         }
     }
 
-
     private fun onSearchAction(text:String) {
 
         if(text.isEmpty()){
@@ -49,16 +70,13 @@ class AirportListViewModel:ViewModel(),AirportListViewModelInterface {
                 listMessage = Pair(false, R.string.emptyDefault)
             )
         }else{
-           val filterList = tempList.filter { it.name.lowercase().contains(text.lowercase()) }
+           val filterList = tempList.filter { it.airname.lowercase().contains(text.lowercase()) }
             _uiState.value = _uiState.value.copy(
                 airportList = filterList,
                 listMessage =
                 if (filterList.isEmpty()) Pair(true, R.string.listAirportEmpty)
                 else Pair(false, R.string.emptyDefault)
             )
-
         }
-
     }
-
 }

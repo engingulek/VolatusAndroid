@@ -91,13 +91,13 @@ class SharedModel  : ViewModel(){
             if (it) {
                 _airportUiState.value = _airportUiState.value.copy(
                     fromAirport = airport,
-                    fromAirportTextString = "${airport.code} - ${airport.name}"
+                    fromAirportTextString = "${airport.code} - ${airport.airname}"
                 )
                 fromAirport = airport
             } else {
                 _airportUiState.value = _airportUiState.value.copy(
                     toAirport = airport,
-                    toAirportText = "${airport.code} - ${airport.name}"
+                    toAirportText = "${airport.code} - ${airport.airname}"
                 )
                 toAirport = airport
             }
@@ -114,9 +114,9 @@ class SharedModel  : ViewModel(){
 
         _airportUiState.value = _airportUiState.value.copy(
             fromAirport = tempToAirport,
-            fromAirportTextString = if (tempToAirport == null) "Choosen" else "${tempToAirport.code} - ${tempToAirport.name}",
+            fromAirportTextString = if (tempToAirport == null) "Choosen" else "${tempToAirport.code} - ${tempToAirport.airname}",
             toAirport = tempFromAirport,
-            toAirportText = if (tempFromAirport == null) "Choosen" else "${tempFromAirport.code} - ${tempFromAirport.name}",
+            toAirportText = if (tempFromAirport == null) "Choosen" else "${tempFromAirport.code} - ${tempFromAirport.airname}",
             )
     }
 

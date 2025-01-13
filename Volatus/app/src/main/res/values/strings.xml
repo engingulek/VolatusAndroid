@@ -42,5 +42,7 @@
     <string name="departureTicketInfo">Departure Ticket Info</string>
     <string name="retrunTicketInfo">Return Ticket Info</string>
     <string name="cancel">Cancel</string>
+    <string name="errorMessage">Something Went Wrong</string>
+    <string name="emptyAirport">No Airport Available</string>
 
 </resources>
