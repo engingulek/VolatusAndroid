@@ -2,6 +2,7 @@ package com.example.volatus.shared
 
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.passenger.Passenger
+import com.example.volatus.ui.features.ticketlist.Ticket
 import java.time.LocalDate
 
 object SharedContract {
@@ -31,8 +32,8 @@ object SharedContract {
 
 
     data class TicketState(
-        var selectedDepartureTicketId: Int? = null,
-        var selectedReturnTicketId: Int? = null
+        var selectedDepartureTicket: Ticket? = null,
+        var selectedReturnTicket: Ticket? = null
     )
 
 
@@ -42,7 +43,7 @@ object SharedContract {
         data class selectedDate(var type: Boolean?, var date: LocalDate) : SharedAction
         data class updatePassengerList(var passengerList: List<Passenger>) : SharedAction
         data class updateReturnState(var state: Boolean) : SharedAction
-        data class selectedDepartureTicket(var id: Int) : SharedAction
-        data class selectedReturnTicket(var id: Int) : SharedAction
+        data class selectedDepartureTicket(var ticket: Ticket) : SharedAction
+        data class selectedReturnTicket(var ticket: Ticket) : SharedAction
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.passenger.Passenger
+import com.example.volatus.ui.features.ticketlist.Ticket
 import com.example.volatus.utils.FormaterType
 import com.example.volatus.utils.formatter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,10 +79,10 @@ class SharedModel  : ViewModel(){
             is SharedContract.SharedAction.updatePassengerList -> updatePassengerListAction(onAction.passengerList)
             is SharedContract.SharedAction.updateReturnState -> updateReturnState(onAction.state)
             is SharedContract.SharedAction.selectedDepartureTicket -> selectedDepartureTicketId(
-                onAction.id
+                onAction.ticket
             )
 
-            is SharedContract.SharedAction.selectedReturnTicket -> selectedReturnTicketId(onAction.id)
+            is SharedContract.SharedAction.selectedReturnTicket -> selectedReturnTicketId(onAction.ticket)
         }
     }
 
@@ -162,15 +163,15 @@ class SharedModel  : ViewModel(){
         )
     }
 
-    private fun selectedDepartureTicketId(id: Int) {
+    private fun selectedDepartureTicketId(ticket: Ticket) {
         _ticketState.value = _ticketState.value.copy(
-            selectedDepartureTicketId = id
+            selectedDepartureTicket = ticket
         )
     }
 
-    private fun selectedReturnTicketId(id: Int) {
+    private fun selectedReturnTicketId(ticket: Ticket) {
         _ticketState.value = _ticketState.value.copy(
-            selectedReturnTicketId = id
+            selectedReturnTicket  = ticket
         )
     }
 }

@@ -50,12 +50,19 @@ fun PassengerInfoScreen(
     val  state by viewModel.state.collectAsState()
 
     var isOpen by remember { mutableStateOf(false) }
+    val ticketState by sharedModel.ticketState.collectAsState()
     Column(modifier = Modifier.
     fillMaxSize()
         .background(Color.Gray.copy(0.1f))) {
-        TicketInfoComponent(stringResource(R.string.departureTicketInfo))
+        TicketInfoComponent(
+            stringResource(R.string.departureTicketInfo),
+            ticket = ticketState.selectedDepartureTicket
+        )
         if (dateState.returnState) {
-            TicketInfoComponent(stringResource(R.string.retrunTicketInfo))
+            TicketInfoComponent(
+                stringResource(R.string.retrunTicketInfo),
+                ticket = ticketState.selectedReturnTicket
+            )
         }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(state.infoShowList.size){ index ->

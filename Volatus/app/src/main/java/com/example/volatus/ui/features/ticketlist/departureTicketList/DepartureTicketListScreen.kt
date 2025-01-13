@@ -92,10 +92,9 @@ fun DepartureTicketListScreen(
         }else{
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(state.ticketList.count()) { index ->
-                    val ticket = state.ticketList[index]
+                items(state.ticketList) { ticket ->
                     TicketComponent(ticket) {
-                        sharedModel.onAction(SharedContract.SharedAction.selectedDepartureTicket(index))
+                        sharedModel.onAction(SharedContract.SharedAction.selectedDepartureTicket(ticket))
                         if (sharedState.returnState)
                             navigationReturnTicketList()
                         else
