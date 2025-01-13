@@ -36,7 +36,7 @@ fun AppNavigation(
   //  airportListViewModel:AirportListViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
-    departureTicketListViewModel: DepartureTicketListViewModelInterface,
+    departureTicketListViewModel: DepartureTicketListViewModel,
     returnTicketListViewModel:ReturnTicketListViewModelInterface,
     passengerInfoViewModel:PassengerInfoViewModelInterface
 ) {
@@ -70,7 +70,9 @@ fun AppNavigation(
 
                 navigationToDepartureTicketList = {
                     val departureDate = sharedModel.dateState.value.departureDate
-                    departureTicketListViewModel.createDatePrice(departureDate)
+                    val fromAirport = sharedModel.airportUiState.value.fromAirport
+                    val toAirport = sharedModel.airportUiState.value.toAirport
+                    departureTicketListViewModel.getInfo(fromAirport,toAirport,departureDate)
                     navHostController.navigate(route ="departureTicketList" )
                 }
 

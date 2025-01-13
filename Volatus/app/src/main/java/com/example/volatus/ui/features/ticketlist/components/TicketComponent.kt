@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,18 +20,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.volatus.R
-import com.example.volatus.ui.theme.hourIcon
-import com.example.volatus.ui.theme.minusIcon
+import com.example.volatus.ui.features.ticketlist.Ticket
+import com.example.volatus.utils.CoilImage
 
 @Composable
-fun TicketComponent(onTap:() -> Unit) {
+fun TicketComponent(
+    ticket:Ticket,
+    onTap:() -> Unit) {
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -50,17 +48,17 @@ fun TicketComponent(onTap:() -> Unit) {
                 Image(
                     modifier = Modifier
                         .size(40.dp).clip(CircleShape).padding(),
-                    painter = painterResource(R.drawable.test_icon,),
-                    contentDescription = "",
+                    painter = CoilImage.loadImageCoil(ticket.airlinesIcon),
+                    contentDescription = "airlineicon ${ticket.airlineName}",
                     contentScale = ContentScale.FillWidth,
                 )
                 Column {
-                    Text("Airlines Name",
+                    Text(ticket.airlineName,
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold)
                     )
-                    Text("Plane Type",
+                    Text(ticket.planeType,
                         style = TextStyle(
                             fontSize = 18.sp,
                             color = Color.Gray)
@@ -68,15 +66,6 @@ fun TicketComponent(onTap:() -> Unit) {
                 }
             }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                Icon( imageVector = hourIcon.image,
-                    contentDescription = stringResource(minusIcon.contentDescription),
-                    tint = hourIcon.color,
-                    modifier = Modifier.size(20.dp))
-                Text("2h:30m")
-            }
         }// head finish
 
         //middle Start
@@ -84,13 +73,13 @@ fun TicketComponent(onTap:() -> Unit) {
             modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween) {
             Column {
-                Text("09:15", style = TextStyle(fontSize = 35.sp))
-                Text("Code - City Name")
+                Text(ticket.departureClock, style = TextStyle(fontSize = 35.sp))
+                Text("${ticket.departureAirport.code} - ${ticket.departureAirport.city}")
             }
 
             Column(horizontalAlignment = Alignment.End) {
-                Text("12:15", style = TextStyle(fontSize = 35.sp))
-                Text("Code - City Name")
+                Text(ticket.landingClock, style = TextStyle(fontSize = 35.sp))
+                Text("${ticket.arrivalAirport.code} - ${ticket.arrivalAirport.city}")
             }
         }// middle Finish
         HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp))
@@ -98,7 +87,7 @@ fun TicketComponent(onTap:() -> Unit) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(10.dp),
             horizontalArrangement = Arrangement.End) {
-            Text("TRY 1500",
+            Text("TRY ${ticket.price}",
                 style = TextStyle(
                     fontSize = 25.sp,
                     fontWeight = FontWeight.SemiBold

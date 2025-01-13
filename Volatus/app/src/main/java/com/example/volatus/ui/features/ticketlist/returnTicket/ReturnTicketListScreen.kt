@@ -50,10 +50,10 @@ fun ReturnTicketListScreen(
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(20) { item ->
-                TicketComponent {
+                /*TicketComponent {
                   sharedModel.onAction(SharedContract.SharedAction.selectedReturnTicket(item))
                     navigationPassenger()
-                }
+                }*/
             }
         }
 

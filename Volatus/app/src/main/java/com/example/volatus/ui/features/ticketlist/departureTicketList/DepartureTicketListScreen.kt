@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
@@ -55,7 +56,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion as TextAlign1
 
 @Composable
 fun DepartureTicketListScreen(
-    viewModel:DepartureTicketListViewModelInterface,
+    viewModel:DepartureTicketListViewModel = hiltViewModel(),
     sharedModel: SharedModel,
     navigationPassenger:() -> Unit,
     navigationReturnTicketList:() -> Unit
@@ -80,17 +81,29 @@ fun DepartureTicketListScreen(
                 }
             }
         }
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            items(20) { item ->
-             TicketComponent {
-                 sharedModel.onAction(SharedContract.SharedAction.selectedDepartureTicket(item))
-                 if (sharedState.returnState)
-                     navigationReturnTicketList()
-                 else
-                     navigationPassenger()
-             }
-            }
+        if (state.listMessage.first){
+            Text(
+                stringResource(state.listMessage.second),
+                modifier = Modifier.fillMaxSize(),
+                textAlign = TextAlign.Center,
+                style = TextStyle(fontSize = 20.sp, color = Color.Red, fontWeight = FontWeight.SemiBold)
+
+            )
+        }else{
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                items(state.ticketList.count()) { index ->
+                    val ticket = state.ticketList[index]
+                    TicketComponent(ticket) {
+                        sharedModel.onAction(SharedContract.SharedAction.selectedDepartureTicket(index))
+                        if (sharedState.returnState)
+                            navigationReturnTicketList()
+                        else
+                            navigationPassenger()
+                    }
+                }
+        }
+
         }
 
     }
@@ -101,7 +114,7 @@ fun DepartureTicketListScreen(
 @Composable
 fun DepartureTicketListScreenPreview() {
     DepartureTicketListScreen(
-        viewModel = DepartureTicketListViewModel(),
+
         sharedModel = SharedModel(),
         navigationPassenger = {},
         navigationReturnTicketList = {} )
