@@ -1,17 +1,19 @@
-package com.example.volatus.ui.features.ticketlist.departureTicketList
+package com.example.volatus.ui.features.ticketlist.returnTicket
 
 import com.example.volatus.retrofit.ApiService
 import com.example.volatus.ui.features.ticketlist.Ticket
 import javax.inject.Inject
 
-interface DepartureTicketListServiceInterface{
+
+interface ReturnTicketListServiceInterface {
     suspend fun fetchTicketList(departureId:Int,arrivalId:Int,date:String)
     suspend fun getTicketList():Pair<List<Ticket>,Boolean>
 }
 
-class DepartureTicketListService @Inject constructor(
+class ReturnTicketListService @Inject constructor(
     private val apiService: ApiService
-) : DepartureTicketListServiceInterface{
+) : ReturnTicketListServiceInterface {
+
     private var ticketList : Pair<List<Ticket>,Boolean> = Pair(emptyList(),true)
     override suspend fun fetchTicketList(departureId: Int, arrivalId: Int, date: String) {
         try {
@@ -32,5 +34,4 @@ class DepartureTicketListService @Inject constructor(
     override suspend fun getTicketList(): Pair<List<Ticket>, Boolean> {
         return  ticketList
     }
-
 }

@@ -24,6 +24,7 @@ import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureT
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListViewModelInterface
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListScreen
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModel
 import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListViewModelInterface
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -37,7 +38,7 @@ fun AppNavigation(
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModel,
-    returnTicketListViewModel:ReturnTicketListViewModelInterface,
+    returnTicketListViewModel:ReturnTicketListViewModel,
     passengerInfoViewModel:PassengerInfoViewModelInterface
 ) {
     NavHost(
@@ -123,7 +124,10 @@ fun AppNavigation(
                 navigationReturnTicketList = {
                     val departureDate = sharedModel.dateState.value.departureDate
                     val returnDate = sharedModel.dateState.value.returnDate
-                    returnTicketListViewModel.createDatePrice(departureDate,returnDate)
+                    val fromAirport = sharedModel.airportUiState.value.toAirport
+                    val toAirport = sharedModel.airportUiState.value.fromAirport
+                    returnTicketListViewModel.getInfo(fromAirport,toAirport,departureDate,returnDate)
+
                     navHostController.navigate("returnTicketListScreen") }
                 )
         }

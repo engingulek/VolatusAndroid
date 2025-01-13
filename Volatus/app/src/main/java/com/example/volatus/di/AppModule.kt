@@ -6,6 +6,9 @@ import com.example.volatus.ui.features.airtportList.AirportService
 import com.example.volatus.ui.features.airtportList.AirportServiceInterface
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListService
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DepartureTicketListServiceInterface
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListScreen
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListService
+import com.example.volatus.ui.features.ticketlist.returnTicket.ReturnTicketListServiceInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +41,12 @@ class AppModule {
     @Singleton
     fun provideDepartureTicketService(apiService: ApiService) : DepartureTicketListServiceInterface {
         return  DepartureTicketListService(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReturnTicketService(apiService: ApiService) : ReturnTicketListServiceInterface
+    {
+        return ReturnTicketListService(apiService)
     }
 }

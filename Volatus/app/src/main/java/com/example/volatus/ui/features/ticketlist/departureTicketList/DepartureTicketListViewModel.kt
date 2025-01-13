@@ -27,7 +27,6 @@ data class DayAndPrice(
 
 interface  DepartureTicketListViewModelInterface {
    var state : StateFlow<DepartureTicketContract.State>
-    //fun createDatePrice(getDate:LocalDate)
     fun getInfo(fromAirport:Airport?,toAirport: Airport?,getDate:LocalDate)
     fun onAction(onAction:DepartureTicketContract.UiAction)
 }

@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         dateViewModel = DateViewModel(),
                         passengerViewModel = PassengerViewModel(),
                         departureTicketListViewModel = hiltViewModel(),
-                        returnTicketListViewModel = ReturnTicketListViewModel(),
+                        returnTicketListViewModel = hiltViewModel(),
                         passengerInfoViewModel = PassengerInfoViewModel(),
                        // airportListViewModel = hiltViewModel()
                     )
