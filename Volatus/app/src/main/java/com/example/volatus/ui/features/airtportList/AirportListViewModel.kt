@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.airtportList
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.volatus.R
@@ -30,9 +29,6 @@ class AirportListViewModel @Inject constructor(private val service: AirportServi
         // fetch airport
         fetchAirportList()
     }
-
-
-    fun test(){}
 
     private fun fetchAirportList() {
         viewModelScope.launch {

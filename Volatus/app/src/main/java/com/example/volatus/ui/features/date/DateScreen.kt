@@ -10,11 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -22,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.date.components.DayComponent
 import com.example.volatus.ui.features.date.components.WeekComponent
-
 import java.time.LocalDate
 
 

@@ -61,7 +61,4 @@ object ViewModuleModule {
     fun providePassengerInfoViewModelInterface(
         viewModel:PassengerInfoViewModel
     ) : PassengerInfoViewModelInterface = viewModel
-
-
-
 }

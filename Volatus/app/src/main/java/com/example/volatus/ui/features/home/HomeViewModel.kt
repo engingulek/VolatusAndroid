@@ -31,10 +31,6 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeViewModelInterface 
         }
     }
 
-    fun  test() {
-
-    }
-
     private fun clickedOneWay() {
         _uiState.value = _uiState.value.copy(
             returnVisible = true

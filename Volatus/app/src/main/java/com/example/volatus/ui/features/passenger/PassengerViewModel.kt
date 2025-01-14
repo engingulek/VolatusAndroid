@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.passenger
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

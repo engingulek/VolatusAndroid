@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.ticketlist.departureTicketList
 
-import androidx.compose.ui.util.trace
 import com.example.volatus.R
 import com.example.volatus.ui.features.ticketlist.Ticket
 

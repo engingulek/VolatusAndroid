@@ -149,7 +149,5 @@ fun AppNavigation(
                     navHostController.navigate("passengerInfoScreen")
                 })
         }
-
-
     }
 }
