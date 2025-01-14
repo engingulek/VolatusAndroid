@@ -34,7 +34,7 @@ fun AppNavigation(
     navHostController: NavHostController,
     sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
-  //  airportListViewModel:AirportListViewModelInterface,
+    airportListViewModel:  AirportListViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModel,
@@ -85,6 +85,7 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
+                viewModel = airportListViewModel,
                selectAirport = {sharedModel.onAction(SharedContract.SharedAction.selectedAirport(type=type,it))},
                 onBack = {navHostController.popBackStack()}
             )

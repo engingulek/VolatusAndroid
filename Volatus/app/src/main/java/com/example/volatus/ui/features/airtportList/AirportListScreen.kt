@@ -19,7 +19,7 @@ import com.example.volatus.ui.features.airtportList.components.SearchComponent
 
 @Composable
 fun AirportListScreen(
-    viewModel:AirportListViewModel = hiltViewModel(),
+    viewModel:AirportListViewModelInterface,
     selectAirport:(Airport) -> Unit,
     onBack: () -> Unit
 
@@ -47,5 +47,5 @@ fun AirportListScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AirportListScreenPreview() {
-    AirportListScreen(onBack = {},selectAirport = {})
+    AirportListScreen(viewModel =  hiltViewModel<AirportListViewModel>(),onBack = {},selectAirport = {})
 }

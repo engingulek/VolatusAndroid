@@ -31,7 +31,7 @@ import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
 
 @Composable
 fun ReturnTicketListScreen(
-    viewModel:ReturnTicketListViewModel = hiltViewModel(),
+    viewModel:ReturnTicketListViewModelInterface,
     sharedModel:SharedModel,
     navigationPassenger:() -> Unit
 ) {

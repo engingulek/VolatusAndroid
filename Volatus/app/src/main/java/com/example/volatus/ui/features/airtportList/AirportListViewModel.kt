@@ -31,6 +31,9 @@ class AirportListViewModel @Inject constructor(private val service: AirportServi
         fetchAirportList()
     }
 
+
+    fun test(){}
+
     private fun fetchAirportList() {
         viewModelScope.launch {
             service.fetchAllAirportList()

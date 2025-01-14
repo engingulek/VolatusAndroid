@@ -51,9 +51,6 @@ class DepartureTicketListViewModel
     }
 
     private fun getTicket(date:String) {
-      /*  Log.e("date","${date}")
-        Log.e("selectedFromAirport","${selectedFromAirport?.id}")
-        Log.e("selectedToAirport","${selectedToAirport?.id}")*/
 
         val fromAirport = selectedFromAirport ?: return
         val toAirport = selectedToAirport ?: return

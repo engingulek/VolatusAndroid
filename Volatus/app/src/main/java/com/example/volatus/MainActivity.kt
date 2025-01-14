@@ -37,13 +37,13 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize().padding(innerPadding),
                         navHostController = navController,
                         sharedModel,
-                        homeViewModel = HomeViewModel(),
-                        dateViewModel = DateViewModel(),
-                        passengerViewModel = PassengerViewModel(),
-                        departureTicketListViewModel = hiltViewModel(),
-                        returnTicketListViewModel = hiltViewModel(),
-                        passengerInfoViewModel = PassengerInfoViewModel(),
-                       // airportListViewModel = hiltViewModel()
+                        homeViewModel = hiltViewModel<HomeViewModel>(),
+                        airportListViewModel =  hiltViewModel<AirportListViewModel>(),
+                        dateViewModel = hiltViewModel<DateViewModel>(),
+                        passengerViewModel = hiltViewModel<PassengerViewModel>(),
+                        departureTicketListViewModel = hiltViewModel<DepartureTicketListViewModel>(),
+                        returnTicketListViewModel = hiltViewModel<ReturnTicketListViewModel>(),
+                        passengerInfoViewModel = hiltViewModel<PassengerInfoViewModel>()
                     )
 
                 }

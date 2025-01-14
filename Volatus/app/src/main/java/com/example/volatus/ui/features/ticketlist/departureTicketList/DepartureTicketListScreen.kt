@@ -56,7 +56,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion as TextAlign1
 
 @Composable
 fun DepartureTicketListScreen(
-    viewModel:DepartureTicketListViewModel = hiltViewModel(),
+    viewModel:DepartureTicketListViewModelInterface,
     sharedModel: SharedModel,
     navigationPassenger:() -> Unit,
     navigationReturnTicketList:() -> Unit
@@ -113,7 +113,7 @@ fun DepartureTicketListScreen(
 @Composable
 fun DepartureTicketListScreenPreview() {
     DepartureTicketListScreen(
-
+        viewModel = hiltViewModel<DepartureTicketListViewModel>(),
         sharedModel = SharedModel(),
         navigationPassenger = {},
         navigationReturnTicketList = {} )
