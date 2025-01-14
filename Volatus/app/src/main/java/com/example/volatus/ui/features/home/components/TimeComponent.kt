@@ -20,22 +20,15 @@ import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
 import com.example.volatus.ui.theme.BackgroundColor
 import com.example.volatus.ui.theme.borderColor
+import com.example.volatus.utils.extensions.customBorderBackground
 
 @Composable
 fun TimeComponent(
     title:Int,
     dateText:String,
     navigation:() -> Unit) {
-
         Column( modifier = Modifier
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .background(color = BackgroundColor)
-            .padding(10.dp)
-            .clickable(onClick = navigation)
+            .customBorderBackground(padding = 10.dp,navigation)
         ) {
             Text(stringResource(title))
             Text(dateText,

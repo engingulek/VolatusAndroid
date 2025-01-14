@@ -21,6 +21,7 @@ import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.ui.theme.BackgroundColor
 import com.example.volatus.ui.theme.borderColor
+import com.example.volatus.utils.extensions.customBorderBackground
 
 @Composable
 fun PassengerComponent(
@@ -29,14 +30,7 @@ fun PassengerComponent(
 ) {
     Column( modifier = Modifier
         .fillMaxWidth()
-        .border(
-            width = 1.dp,
-            color = borderColor,
-            shape = RoundedCornerShape(16.dp)
-        )
-        .background(color = BackgroundColor)
-        .padding(16.dp)
-        .clickable(onClick = navigation)
+        .customBorderBackground(padding = 16.dp,navigation)
     ) {
         Text(stringResource(R.string.passenger))
         Text(state.passengerText,

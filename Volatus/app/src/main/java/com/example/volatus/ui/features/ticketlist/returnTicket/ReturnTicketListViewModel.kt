@@ -81,7 +81,6 @@ class ReturnTicketListViewModel  @Inject constructor(
             val futureDate = departureDate.plusDays(i.toLong())
             val dateAndPrice = DayAndPrice(
                 date = futureDate,
-                price = 1500,
                 selectedStateColor = if (futureDate == returnDate) selectedDate.value
                 else noSelectedDate.value
             )

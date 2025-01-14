@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 data class DayAndPrice(
     val date:LocalDate,
-    val price:Int,
     var selectedStateColor:ULong
 )
 
@@ -79,7 +78,6 @@ class DepartureTicketListViewModel
             val futureDate = today.plusDays(i.toLong())
             val dateAndPrice = DayAndPrice(
                 date= futureDate,
-                price = 1500,
                 selectedStateColor = if (futureDate == getDate) selectedDate.value else  noSelectedDate.value )
 
             if (futureDate == getDate) {
