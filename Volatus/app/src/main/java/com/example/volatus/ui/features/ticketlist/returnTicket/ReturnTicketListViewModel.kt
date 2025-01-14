@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.ticketlist.returnTicket
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.volatus.R
@@ -8,8 +7,8 @@ import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DayAndPrice
 import com.example.volatus.ui.theme.noSelectedDate
 import com.example.volatus.ui.theme.selectedDate
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +19,6 @@ import javax.inject.Inject
 interface ReturnTicketListViewModelInterface {
     val  state : StateFlow<ReturnTicketListContract.State>
     fun getInfo(fromAirport: Airport?, toAirport: Airport?, departureDate: LocalDate,returnDate: LocalDate)
-  //  fun createDatePrice(departureDate:LocalDate,returnDate:LocalDate)
     fun onAction(onAction:ReturnTicketListContract.UiAction)
 }
 
@@ -45,11 +43,8 @@ class ReturnTicketListViewModel  @Inject constructor(
 
     private fun getTicket(date:String) {
 
-
         val fromAirport = selectedFromAirport ?: return
         val toAirport = selectedToAirport ?: return
-        Log.e("from","${fromAirport.id}")
-        Log.e("to","${toAirport.id}")
         viewModelScope.launch {
             service.fetchTicketList(fromAirport.id,toAirport.id,date)
             val data = service.getTicketList()
@@ -81,7 +76,6 @@ class ReturnTicketListViewModel  @Inject constructor(
             val futureDate = departureDate.plusDays(i.toLong())
             val dateAndPrice = DayAndPrice(
                 date = futureDate,
-                price = 1500,
                 selectedStateColor = if (futureDate == returnDate) selectedDate.value
                 else noSelectedDate.value
             )

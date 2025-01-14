@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.passengerInfo
 
-import com.example.volatus.ui.features.passenger.Passenger
 import java.time.LocalDate
 
 object PassengerInfoContract {

@@ -19,7 +19,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.volatus.ui.theme.BackgroundColor
 import com.example.volatus.ui.theme.datePicker
+import com.example.volatus.ui.theme.errorColor
 
 @Composable
 fun PassengerInfoBirthDateComponent(
@@ -29,7 +31,7 @@ fun PassengerInfoBirthDateComponent(
 ) {
     Row(
         modifier = Modifier
-            .background(Color.White)
+            .background(BackgroundColor)
             .border(2.dp, Color.LightGray, RoundedCornerShape(10.dp))
             .padding(16.dp).clickable(onClick = onTap) ,
         verticalAlignment = Alignment.CenterVertically,
@@ -49,5 +51,5 @@ fun PassengerInfoBirthDateComponent(
     }
     if (errorState.second)
         Text(stringResource(errorState.first),
-            style = TextStyle(fontSize = 20.sp, color = Color.Red))
+            style = TextStyle(fontSize = 20.sp, color = errorColor))
 }

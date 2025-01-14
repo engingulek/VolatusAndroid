@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Volatus</string>
+    <string name="emptyDefault">""</string>
+    <string name="worldMapContent"></string>
+    <string name="swapIconsContent">konumları değiştir</string>
+    <string name="search">Ara</string>
+    <string name="from">Nereden</string>
+    <string name="to">Nereye</string>
+    <string name="departure">Kalkış</string>
+    <string name="returnTitle">Dönüş</string>
+    <string name="passenger">Yolcu</string>
+    <string name="oneway">Tek Yön</string>
+    <string name="roundTrip">Gidiş Dönüş</string>
+    <string name="searchPlaceholder">Havalimanı Ara</string>
+    <string name="airportListTitle">Havalimanı Listesi</string>
+    <string name="departureTitle">Kalkış Tarihi</string>
+    <string name="returnDateTitle">Dönüş Tarihi</string>
+    <string name="confirmButton">Onayla</string>
+    <string name="adult_title">Yetişkin</string>
+    <string name="adult_range_title">18+ yaş</string>
+    <string name="child_title">Çocuk</string>
+    <string name="child_range_title">2-18 yaş</string>
+    <string name="baby_title">Bebek</string>
+    <string name="baby_range_title">0-2 yaş</string>
+    <string name="addIcon">Ekle İkonu</string>
+    <string name="minusIcon">Çıkar İkonu</string>
+    <string name="timeIcon">Zaman İkonu</string>
+    <string name="arrowDown">Aşağı Ok</string>
+    <string name="arrowUp">Yukarı Ok</string>
+    <string name="enterId">TC Kimlik No Girin</string>
+    <string name="enterName">Ad Girin</string>
+    <string name="enterSurname">Soyad Girin</string>
+    <string name="blankError">Bu alan boş bırakılamaz</string>
+    <string name="shortError">Bu çok kısa</string>
+    <string name="checkId">Lütfen TC Kimlik Numaranızı kontrol edin</string>
+    <string name="datepickerIcon">Tarih Seçim İkonu</string>
+    <string name="dateError">Doğum tarihini kontrol edin</string>
+    <string name="allAirports">Tüm Havalimanları</string>
+    <string name="listAirportEmpty">Havalimanı Bulunamadı</string>
+    <string name="departureTicketInfo">Kalkış Bilet Bilgisi</string>
+    <string name="retrunTicketInfo">Dönüş Bilet Bilgisi</string>
+    <string name="cancel">İptal</string>
+    <string name="errorMessage">Bir Hata Oluştu</string>
+    <string name="emptyAirport">Havalimanı Yok</string>
+    <string name="emptyTicket">Bilet Bulunamadı</string>
+
+
+</resources>

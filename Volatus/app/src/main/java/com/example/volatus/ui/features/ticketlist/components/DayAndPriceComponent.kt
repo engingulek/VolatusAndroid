@@ -1,14 +1,11 @@
 package com.example.volatus.ui.features.ticketlist.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,13 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DayAndPrice
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 
 @Composable
 fun DayAndPriceComponent(
@@ -30,20 +27,16 @@ fun DayAndPriceComponent(
     onTap:() -> Unit
 ) {
     Column(
-        Modifier.clickable(onClick = onTap),
-        verticalArrangement = Arrangement.spacedBy(3.dp),
+        Modifier.clickable(onClick = onTap).padding(vertical = 15.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
         Text(
             text = dayAndPrice.date.formatter(FormaterType.TypeFour),
-            style = TextStyle(fontSize = 20.sp, color = Color.Gray),
-            textAlign = TextAlign.Center,
-            color = Color( dayAndPrice.selectedStateColor)
-        )
-        Text(
-            text = "TRY ${dayAndPrice.price}",
-            style = TextStyle(fontSize = 15.sp,color = Color.Gray),
+            style = TextStyle(fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Gray),
             textAlign = TextAlign.Center,
             color = Color( dayAndPrice.selectedStateColor)
         )

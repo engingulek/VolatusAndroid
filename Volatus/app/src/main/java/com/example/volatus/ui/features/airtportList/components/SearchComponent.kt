@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -23,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
+import com.example.volatus.ui.theme.searchTextColor
+import com.example.volatus.ui.theme.secondaryBorderColor
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,14 +43,14 @@ fun SearchComponent(
                 stringResource(placeholder),
                 style = TextStyle(
                     fontSize = 20.sp,
-                    color = Color.LightGray,
+                    color = searchTextColor,
                 )
             )
         },
         modifier = Modifier
             .fillMaxWidth()
             .border(
-                BorderStroke(2.dp, Color.Red),
+                BorderStroke(2.dp, secondaryBorderColor),
                 RoundedCornerShape(10.dp)
             )
             .background(Color.White, RoundedCornerShape(10.dp))

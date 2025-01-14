@@ -2,8 +2,10 @@ package com.example.volatus.ui.features.home
 
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 interface HomeViewModelInterface {
     var uiState: StateFlow<HomeContract.UiState>
@@ -12,8 +14,8 @@ interface HomeViewModelInterface {
     fun onAction(uiAction: HomeContract.UiAction)
 }
 
-
-class HomeViewModel : ViewModel(), HomeViewModelInterface {
+@HiltViewModel
+class HomeViewModel @Inject constructor() : ViewModel(), HomeViewModelInterface {
 
     private val _uiState = MutableStateFlow(HomeContract.UiState())
     override var uiState: StateFlow<HomeContract.UiState> = _uiState

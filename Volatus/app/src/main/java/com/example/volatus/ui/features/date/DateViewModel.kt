@@ -3,10 +3,10 @@ package com.example.volatus.ui.features.date
 
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.convertCalendar
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.convertCalendar
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.text.SimpleDateFormat
@@ -14,6 +14,7 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
 
 enum class DateValueType {
@@ -32,7 +33,9 @@ interface DateViewModelInterface {
     fun getSelectedDate(mountIndex: Int, day: Int?): LocalDate
 }
 
-class DateViewModel : ViewModel(), DateViewModelInterface {
+
+@HiltViewModel
+class DateViewModel @Inject constructor() : ViewModel(), DateViewModelInterface {
 
     private val _uiState = MutableStateFlow(DateContract.UiState())
     override var uiState: StateFlow<DateContract.UiState> = _uiState

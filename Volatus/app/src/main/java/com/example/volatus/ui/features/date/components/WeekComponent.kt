@@ -26,12 +26,9 @@ fun WeekComponent(week:String) {
             modifier = Modifier.padding(5.dp),
             style = TextStyle(
                 color = Color.Gray,
-
                 textAlign = TextAlign.Center,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
-
-
             )
         )
     }

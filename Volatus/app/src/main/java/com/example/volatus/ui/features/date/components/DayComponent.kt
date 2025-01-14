@@ -13,8 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.date.DateValueType
-import com.example.volatus.utils.getDateCardColor
-import com.example.volatus.utils.getDateColor
+import com.example.volatus.utils.extensions.getDateCardColor
+import com.example.volatus.utils.extensions.getDateColor
 
 
 @Composable

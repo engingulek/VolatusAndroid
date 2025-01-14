@@ -1,4 +1,4 @@
-package com.example.volatus.utils
+package com.example.volatus.utils.extensions
 
 import androidx.compose.ui.graphics.Color
 import com.example.volatus.ui.features.date.DateValueType

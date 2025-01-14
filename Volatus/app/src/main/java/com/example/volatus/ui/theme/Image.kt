@@ -3,10 +3,12 @@ package com.example.volatus.ui.theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.RemoveCircle
+import androidx.compose.material3.Icon
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.volatus.R
@@ -76,4 +78,11 @@ val datePicker = IconVectorType(
     contentDescription = R.string.datepickerIcon,
     color = Color.Black,
     enabledColor = Color.Black
+)
+
+val backArrow = IconVectorType(
+    image = Icons.Default.ArrowBackIosNew,
+    contentDescription = R.string.emptyDefault,
+    color = Color.White,
+    enabledColor = Color.White
 )

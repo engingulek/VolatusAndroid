@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import com.example.volatus.ui.features.home.HomeScreen
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.AirportListScreen
@@ -34,22 +35,20 @@ fun AppNavigation(
     navHostController: NavHostController,
     sharedModel: SharedModel,
     homeViewModel: HomeViewModelInterface,
-  //  airportListViewModel:AirportListViewModelInterface,
+    airportListViewModel:  AirportListViewModelInterface,
     dateViewModel: DateViewModel,
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModel,
     returnTicketListViewModel:ReturnTicketListViewModel,
-    passengerInfoViewModel:PassengerInfoViewModelInterface
+    passengerInfoViewModel:PassengerInfoViewModelInterface,
 ) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
-        startDestination = "homeScreen"
+        startDestination = "homeScreen",
+
     ){
-
         composable("homeScreen"){
-
-
             HomeScreen(
                 viewModel = homeViewModel,
                 sharedModel = sharedModel,
@@ -85,6 +84,7 @@ fun AppNavigation(
             val type = backStackEntry.arguments?.getBoolean("type")
 
             AirportListScreen(
+                viewModel = airportListViewModel,
                selectAirport = {sharedModel.onAction(SharedContract.SharedAction.selectedAirport(type=type,it))},
                 onBack = {navHostController.popBackStack()}
             )
@@ -149,7 +149,5 @@ fun AppNavigation(
                     navHostController.navigate("passengerInfoScreen")
                 })
         }
-
-
     }
 }

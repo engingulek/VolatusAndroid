@@ -1,6 +1,5 @@
 package com.example.volatus.ui.features.airtportList
 
-import android.util.Log
 import com.example.volatus.retrofit.ApiService
 import javax.inject.Inject
 

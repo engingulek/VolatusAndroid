@@ -1,16 +1,15 @@
 package com.example.volatus.ui.features.passengerInfo
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.passenger.Passenger
-import com.example.volatus.utils.isValidTCNumber
-import com.example.volatus.utils.subtractYears
+import com.example.volatus.utils.extensions.isValidTCNumber
+import com.example.volatus.utils.extensions.subtractYears
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
+import javax.inject.Inject
 
 interface  PassengerInfoViewModelInterface {
     var state : StateFlow<PassengerInfoContract.State>
@@ -19,7 +18,8 @@ interface  PassengerInfoViewModelInterface {
     fun onChangeTextFieldAction(action: PassengerInfoContract.OnChangeTextFieldAction)
 }
 
-class PassengerInfoViewModel : ViewModel(),PassengerInfoViewModelInterface  {
+@HiltViewModel
+class PassengerInfoViewModel @Inject constructor() : ViewModel(),PassengerInfoViewModelInterface  {
     private val  _state = MutableStateFlow(PassengerInfoContract.State())
     override var state: StateFlow<PassengerInfoContract.State> = _state
 

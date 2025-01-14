@@ -1,14 +1,12 @@
 package com.example.volatus.sharedModel
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.Airport
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
-import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
@@ -108,7 +106,7 @@ class SharedModelTests {
             "fromAirportTextString is not correct",
             expectedFromAirportTextString,
             airportState.fromAirportTextString
-            )
+        )
 
         assertEquals(
             "toAirportText is not correct",

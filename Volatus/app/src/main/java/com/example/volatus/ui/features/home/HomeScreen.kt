@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,6 +33,8 @@ import com.example.volatus.ui.features.home.components.SearchButtonComponent
 
 import com.example.volatus.ui.features.home.components.TimeComponent
 import com.example.volatus.ui.features.home.components.TripTypeComponent
+import com.example.volatus.ui.theme.BackgroundColor
+import com.example.volatus.ui.theme.borderColor
 
 @Composable
 fun HomeScreen(
@@ -70,11 +71,11 @@ fun HomeScreen(
                     .padding(top = 100.dp)
                     .border(
                         width = 1.dp,
-                        color = Color.LightGray,
+                        color = borderColor,
                         shape = RoundedCornerShape(8.dp)
                     )
                     .background(
-                        color = Color.White,
+                        color = BackgroundColor,
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(vertical = 20.dp, horizontal = 20.dp),

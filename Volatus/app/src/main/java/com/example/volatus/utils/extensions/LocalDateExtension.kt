@@ -1,6 +1,5 @@
-package com.example.volatus.utils
+package com.example.volatus.utils.extensions
 
-import android.icu.util.Calendar
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

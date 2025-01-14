@@ -1,9 +1,10 @@
 package com.example.volatus.ui.features.passenger
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 interface PassengerViewModelInterface {
     var uiState:StateFlow<PassengerContract.UiState>
@@ -11,7 +12,8 @@ interface PassengerViewModelInterface {
     fun onAction(onAction:PassengerContract.OnAction)
 }
 
-class PassengerViewModel : ViewModel(),PassengerViewModelInterface {
+@HiltViewModel
+class PassengerViewModel @Inject constructor() : ViewModel(),PassengerViewModelInterface {
     private  val _uiState = MutableStateFlow(PassengerContract.UiState())
     override var uiState: StateFlow<PassengerContract.UiState> = _uiState
 
