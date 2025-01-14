@@ -108,7 +108,7 @@ class SharedModelTests {
             "fromAirportTextString is not correct",
             expectedFromAirportTextString,
             airportState.fromAirportTextString
-            )
+        )
 
         assertEquals(
             "toAirportText is not correct",
