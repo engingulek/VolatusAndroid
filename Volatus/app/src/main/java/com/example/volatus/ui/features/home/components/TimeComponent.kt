@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
 import com.example.volatus.ui.features.home.HomeContract
+import com.example.volatus.ui.theme.BackgroundColor
+import com.example.volatus.ui.theme.borderColor
 
 @Composable
 fun TimeComponent(
@@ -28,10 +30,10 @@ fun TimeComponent(
         Column( modifier = Modifier
             .border(
                 width = 1.dp,
-                color = Color.LightGray,
+                color = borderColor,
                 shape = RoundedCornerShape(16.dp)
             )
-            .background(color = Color.White)
+            .background(color = BackgroundColor)
             .padding(10.dp)
             .clickable(onClick = navigation)
         ) {

@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
+import com.example.volatus.ui.theme.BackgroundColor
+import com.example.volatus.ui.theme.borderColor
 
 @Composable
 fun LocationComponent(
@@ -29,10 +31,10 @@ fun LocationComponent(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = Color.LightGray,
+                color = borderColor,
                 shape = RoundedCornerShape(16.dp)
             )
-            .background(color = Color.White)
+            .background(color = BackgroundColor)
             .padding(16.dp)
             .clickable(onClick = navigation)
 

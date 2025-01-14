@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.passengerInfo.InfoShow
+import com.example.volatus.ui.theme.BackgroundColor
 import com.example.volatus.ui.theme.downArrow
 import com.example.volatus.ui.theme.upArrow
 
@@ -28,7 +29,7 @@ fun PassengerInfoTypeComponent(
     onTap:() -> Unit
 ) {
     Row(modifier = Modifier
-        .background(Color.White)
+        .background(BackgroundColor)
         .fillMaxWidth().padding(10.dp)
         .clickable(onClick = onTap)
         ,

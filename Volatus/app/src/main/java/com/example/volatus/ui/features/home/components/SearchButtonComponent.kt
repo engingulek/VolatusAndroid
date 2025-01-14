@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.R
+import com.example.volatus.ui.theme.primaryTextColor
+import com.example.volatus.ui.theme.secondaryBackColor
 
 @Composable
 fun SearchButtonComponent(
@@ -27,8 +29,8 @@ fun SearchButtonComponent(
         modifier = Modifier.fillMaxWidth()
             .height(50.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Red,
-            contentColor = Color.White
+            containerColor = secondaryBackColor,
+            contentColor = primaryTextColor
         )
     ) {
         Text(

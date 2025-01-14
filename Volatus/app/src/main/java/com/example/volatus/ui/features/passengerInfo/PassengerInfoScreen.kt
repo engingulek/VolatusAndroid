@@ -35,6 +35,7 @@ import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoBir
 import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTextFieldComponent
 import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTypeComponent
 import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
+import com.example.volatus.ui.theme.BackgroundColor
 import com.example.volatus.utils.FormaterType
 import com.example.volatus.utils.formatter
 import java.time.Instant
@@ -75,7 +76,7 @@ fun PassengerInfoScreen(
                    Column(
                        modifier = Modifier
                            .fillMaxWidth()
-                           .background(Color.White),
+                           .background(BackgroundColor),
                        horizontalAlignment = Alignment.CenterHorizontally
 
                    ) {

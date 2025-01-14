@@ -41,18 +41,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.ticketlist.components.DayAndPriceComponent
 import com.example.volatus.ui.features.ticketlist.components.TicketComponent
-import com.example.volatus.ui.theme.hourIcon
-import com.example.volatus.ui.theme.minusIcon
-import com.example.volatus.ui.theme.selectedDate
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
-import androidx.compose.ui.text.style.TextAlign.Companion as TextAlign1
+import com.example.volatus.ui.theme.errorColor
 
 @Composable
 fun DepartureTicketListScreen(
@@ -86,7 +79,10 @@ fun DepartureTicketListScreen(
                 stringResource(state.listMessage.second),
                 modifier = Modifier.fillMaxSize(),
                 textAlign = TextAlign.Center,
-                style = TextStyle(fontSize = 20.sp, color = Color.Red, fontWeight = FontWeight.SemiBold)
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    color = errorColor,
+                    fontWeight = FontWeight.SemiBold)
 
             )
         }else{

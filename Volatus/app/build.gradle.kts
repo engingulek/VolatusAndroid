@@ -94,6 +94,9 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //status bar
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
 
 
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.home.HomeContract
+import com.example.volatus.ui.theme.secondaryBorderColor
 
 
 @Composable
@@ -30,7 +31,7 @@ fun TripTypeComponent(
             .height(50.dp)
             .border(
                 width = 1.dp,
-                color = Color.Red,
+                color = secondaryBorderColor,
                 shape = RoundedCornerShape(8.dp)
             ) .background(
                 color = colorResource(type.containerColor),

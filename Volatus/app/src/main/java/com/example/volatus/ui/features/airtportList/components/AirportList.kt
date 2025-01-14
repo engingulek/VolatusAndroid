@@ -23,6 +23,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volatus.ui.features.airtportList.Airport
+import com.example.volatus.ui.theme.errorColor
+import com.example.volatus.ui.theme.secondaryBackColor
+import com.example.volatus.ui.theme.subTextColor
 
 @Composable
 fun AirportList(
@@ -45,7 +48,7 @@ fun AirportList(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp)
-                .background(Color.Red)
+                .background(secondaryBackColor)
         )
 
         if (messageState.first) {
@@ -53,7 +56,10 @@ fun AirportList(
                     stringResource(messageState.second),
                     modifier = Modifier.fillMaxSize(),
                     textAlign = TextAlign.Center,
-                    style = TextStyle(fontSize = 20.sp, color = Color.Red, fontWeight = FontWeight.SemiBold)
+                    style = TextStyle(
+                        fontSize = 20.sp,
+                        color = errorColor,
+                        fontWeight = FontWeight.SemiBold)
 
                 )
 
@@ -67,15 +73,17 @@ fun AirportList(
                             onBack()
                         },
                         verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                        Text("${airport.city},${airport.country}", style = TextStyle(
+                        Text("${airport.city},${airport.country}",
+                            style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                         )
-                        Text("${airport.code}-${airport.airname}", style = TextStyle(
+                        Text("${airport.code}-${airport.airname}",
+                            style = TextStyle(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = Color.Gray
+                            color = subTextColor
                         )
                         )
                         HorizontalDivider(
