@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import com.example.volatus.ui.features.home.HomeScreen
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.volatus.R
 import com.example.volatus.shared.SharedContract
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.airtportList.AirportListScreen
@@ -39,17 +40,15 @@ fun AppNavigation(
     passengerViewModel:PassengerViewModelInterface,
     departureTicketListViewModel: DepartureTicketListViewModel,
     returnTicketListViewModel:ReturnTicketListViewModel,
-    passengerInfoViewModel:PassengerInfoViewModelInterface
+    passengerInfoViewModel:PassengerInfoViewModelInterface,
 ) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
-        startDestination = "homeScreen"
+        startDestination = "homeScreen",
+
     ){
-
         composable("homeScreen"){
-
-
             HomeScreen(
                 viewModel = homeViewModel,
                 sharedModel = sharedModel,

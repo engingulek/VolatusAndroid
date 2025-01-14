@@ -1,4 +1,4 @@
-package com.example.volatus.utils
+package com.example.volatus.utils.extensions
 
 import android.icu.util.Calendar
 import java.text.SimpleDateFormat

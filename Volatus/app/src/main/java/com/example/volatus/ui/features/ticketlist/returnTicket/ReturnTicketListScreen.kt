@@ -29,6 +29,7 @@ import com.example.volatus.ui.features.ticketlist.components.DayAndPriceComponen
 import com.example.volatus.ui.features.ticketlist.components.TicketComponent
 import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
 import com.example.volatus.ui.theme.errorColor
+import com.example.volatus.utils.conponents.MessageComponent
 
 @Composable
 fun ReturnTicketListScreen(
@@ -58,15 +59,7 @@ fun ReturnTicketListScreen(
             }
         }
         if(state.listMessage.first){
-            Text(
-                stringResource(state.listMessage.second),
-                modifier = Modifier.fillMaxSize(),
-                textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontSize = 20.sp,
-                    color = errorColor,
-                    fontWeight = FontWeight.SemiBold))
-
+            MessageComponent(message = state.listMessage.second)
         }else{
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp)) {

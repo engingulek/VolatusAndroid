@@ -1,22 +1,19 @@
 package com.example.volatus.ui.features.ticketlist.departureTicketList
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.volatus.R
 import com.example.volatus.ui.features.airtportList.Airport
 
 import com.example.volatus.ui.theme.noSelectedDate
 import com.example.volatus.ui.theme.selectedDate
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 data class DayAndPrice(

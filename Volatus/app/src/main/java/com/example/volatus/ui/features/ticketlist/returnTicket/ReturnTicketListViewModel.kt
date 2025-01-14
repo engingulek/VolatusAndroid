@@ -8,8 +8,8 @@ import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.features.ticketlist.departureTicketList.DayAndPrice
 import com.example.volatus.ui.theme.noSelectedDate
 import com.example.volatus.ui.theme.selectedDate
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.ui.Alignment
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.volatus.R
 import com.example.volatus.shared.SharedModel
 import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoBirthDateComponent
@@ -36,8 +35,8 @@ import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTex
 import com.example.volatus.ui.features.passengerInfo.components.PassengerInfoTypeComponent
 import com.example.volatus.ui.features.ticketlist.components.TicketInfoComponent
 import com.example.volatus.ui.theme.BackgroundColor
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.formatter
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.formatter
 import java.time.Instant
 import java.time.ZoneId
 

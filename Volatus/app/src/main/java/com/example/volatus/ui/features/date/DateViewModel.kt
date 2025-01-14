@@ -3,10 +3,9 @@ package com.example.volatus.ui.features.date
 
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.volatus.utils.FormaterType
-import com.example.volatus.utils.convertCalendar
+import com.example.volatus.utils.extensions.FormaterType
+import com.example.volatus.utils.extensions.convertCalendar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

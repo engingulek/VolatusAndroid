@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -26,6 +27,7 @@ import com.example.volatus.ui.features.airtportList.Airport
 import com.example.volatus.ui.theme.errorColor
 import com.example.volatus.ui.theme.secondaryBackColor
 import com.example.volatus.ui.theme.subTextColor
+import com.example.volatus.utils.conponents.MessageComponent
 
 @Composable
 fun AirportList(
@@ -52,18 +54,7 @@ fun AirportList(
         )
 
         if (messageState.first) {
-                Text(
-                    stringResource(messageState.second),
-                    modifier = Modifier.fillMaxSize(),
-                    textAlign = TextAlign.Center,
-                    style = TextStyle(
-                        fontSize = 20.sp,
-                        color = errorColor,
-                        fontWeight = FontWeight.SemiBold)
-
-                )
-
-
+            MessageComponent(message = messageState.second)
         }else{
             LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 items(list){airport ->
