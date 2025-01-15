@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Volatus</string>
+    <string name="emptyDefault">""</string>
+    <string name="worldMapContent"></string>
+    <string name="swapIconsContent">change locations</string>
+    <string name="search">Search</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="departure">Departure</string>
+    <string name="returnTitle">Return</string>
+    <string name="passenger">Passenger</string>
+    <string name="oneway">One way</string>
+    <string name="roundTrip">Round Trip</string>
+    <string name="searchPlaceholder">Search Airport</string>
+    <string name="airportListTitle">Airport List</string>
+    <string name="departureTitle">Departure Date</string>
+    <string name="returnDateTitle">Return Date</string>
+    <string name="confirmButton">Confirm</string>
+    <string name="adult_title">Adult</string>
+    <string name="adult_range_title">18+ age</string>
+
+    <string name="child_title">Child</string>
+    <string name="child_range_title">2-18 age</string>
+
+    <string name="baby_title">Baby</string>
+    <string name="baby_range_title">0-2 age</string>
+    <string name="addIcon">Add Icon</string>
+    <string name="minusIcon">Minus Icon</string>
+    <string name="timeIcon">Time Icon</string>
+    <string name="arrowDown">ArrowDown</string>
+    <string name="arrowUp">Arrow Up</string>
+    <string name="enterId">Enter TR ID</string>
+    <string name="enterName">Enter Name</string>
+    <string name="enterSurname">Enter Surname</string>
+    <string name="blankError">This field cannot be left blank</string>
+    <string name="shortError">this is too short</string>
+    <string name="checkId">Please check your TR Id</string>
+    <string name="datepickerIcon">datepickerIcon</string>
+    <string name="dateError">Check date of birth</string>
+    <string name="allAirports">All Airports</string>
+    <string name="listAirportEmpty">Airport Not Found</string>
+    <string name="departureTicketInfo">Departure Ticket Info</string>
+    <string name="retrunTicketInfo">Return Ticket Info</string>
+    <string name="cancel">Cancel</string>
+    <string name="errorMessage">Something Went Wrong</string>
+    <string name="emptyAirport">No Airport Available</string>
+    <string name="emptyTicket">No Tickets Avaible</string>
+
+
+</resources>
